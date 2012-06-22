@@ -1,0 +1,76 @@
+TestInteger.c++
+
+.F.F.F.F.F.F.F...F.F.F.F.F.F
+
+
+!!!FAILURES!!!
+Test Results:
+Run:  15   Failures: 13   Errors: 0
+
+
+1) test: TestInteger::test_shift_left_digits (F) line: 44 TestInteger.c++
+assertion failed
+- Expression: (p - x) == 5
+
+
+2) test: TestInteger::test_shift_right_digits (F) line: 56 TestInteger.c++
+assertion failed
+- Expression: (p - x) == 1
+
+
+3) test: TestInteger::test_plus_digits (F) line: 69 TestInteger.c++
+assertion failed
+- Expression: p - x == 3
+
+
+4) test: TestInteger::test_minus_digits (F) line: 82 TestInteger.c++
+assertion failed
+- Expression: p - x == 3
+
+
+5) test: TestInteger::test_multiplies_digits (F) line: 95 TestInteger.c++
+assertion failed
+- Expression: p - x == 6
+
+
+6) test: TestInteger::test_divides_digits (F) line: 108 TestInteger.c++
+assertion failed
+- Expression: p - x == 3
+
+
+7) test: TestInteger::test_constructor_1 (F) line: 118 TestInteger.c++
+assertion failed
+- Expression: false
+
+
+8) test: TestInteger::test_abs_1 (F) line: 142 TestInteger.c++
+assertion failed
+- Expression: x == 98765
+
+
+9) test: TestInteger::test_abs_2 (F) line: 151 TestInteger.c++
+assertion failed
+- Expression: x == -98765
+
+
+10) test: TestInteger::test_negation (F) line: 181 TestInteger.c++
+assertion failed
+- Expression: y == -98765
+
+
+11) test: TestInteger::test_output (F) line: 194 TestInteger.c++
+assertion failed
+- Expression: out.str() == "98765"
+
+
+12) test: TestInteger::test_pow_1 (F) line: 208 TestInteger.c++
+assertion failed
+- Expression: x == 0
+
+
+13) test: TestInteger::test_pow_2 (F) line: 218 TestInteger.c++
+assertion failed
+- Expression: x == 98765
+
+
+Done.
