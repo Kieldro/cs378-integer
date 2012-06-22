@@ -25,6 +25,7 @@ To test the program:
 #include <sstream>   // ostringstream
 #include <stdexcept> // invalid_argument
 #include <string>    // ==
+//#include <vector>
 
 #include "cppunit/extensions/HelperMacros.h" // CPPUNIT_TEST, CPPUNIT_TEST_SUITE, CPPUNIT_TEST_SUITE_END
 #include "cppunit/TestFixture.h"             // TestFixture
@@ -32,6 +33,8 @@ To test the program:
 #include "cppunit/TextTestRunner.h"          // TestRunner
 
 #include "Integer.h"
+
+using namespace std;
 
 // -----------
 // TestInteger
@@ -48,7 +51,8 @@ struct TestInteger : CppUnit::TestFixture {
               int x[10];
         const int* p = shift_left_digits(a, a + 3, 2, x);
         CPPUNIT_ASSERT((p - x) == 5);
-        CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, b));}
+        CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, b));
+    }
 
     // ------------------
     // shift_right_digits
@@ -72,8 +76,17 @@ struct TestInteger : CppUnit::TestFixture {
         const int c[] = {8, 0, 1};
               int x[10];
         const int* p = plus_digits(a, a + 3, b, b + 3, x);
+
+        if (DEBUG){     // print contents of an array
+            cerr << "x: ";
+            int size = sizeof(x)/sizeof(*x);
+            for(int i = 0; (unsigned)i < 10; ++i)
+                cerr << " " << x[i];
+            cerr << endl;
+        }
         CPPUNIT_ASSERT(p - x == 3);
-        CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c));}
+        CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c));
+    }
 
     // ------------
     // minus_digits
@@ -233,9 +246,9 @@ struct TestInteger : CppUnit::TestFixture {
 
     CPPUNIT_TEST_SUITE(TestInteger);
     CPPUNIT_TEST(test_shift_left_digits);
-  /*  CPPUNIT_TEST(test_shift_right_digits);
+    CPPUNIT_TEST(test_shift_right_digits);
     CPPUNIT_TEST(test_plus_digits);
-    CPPUNIT_TEST(test_minus_digits);
+ /*   CPPUNIT_TEST(test_minus_digits);
     CPPUNIT_TEST(test_multiplies_digits);
     CPPUNIT_TEST(test_divides_digits);
     CPPUNIT_TEST(test_constructor_1);

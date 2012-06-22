@@ -6,6 +6,7 @@
 
 #ifndef Integer_h
 #define Integer_h
+#define DEBUG true
 
 // --------
 // includes
@@ -16,6 +17,8 @@
 #include <stdexcept> // invalid_argument
 #include <string>    // string
 #include <vector>    // vector
+
+using namespace std;
 
 // -----------------
 // shift_left_digits
@@ -29,12 +32,13 @@
  * the sequences are of decimal digits
  * output the shift left of the input sequence into the output sequence
  * (s << n) => x
+ * Implemented for Input Iterator
  */
 template <typename II, typename OI>
 OI shift_left_digits (II b, II e, int n, OI x) {
     for(;b != e; ++b, ++x)
         *x = *b;
-    
+
     for(int j = 0; j < n; ++j, ++x)
         *x = 0;
 
@@ -53,11 +57,20 @@ OI shift_left_digits (II b, II e, int n, OI x) {
  * the sequences are of decimal digits
  * output the shift right of the input sequence into the output sequence
  * (s >> n) => x
+ * Implemented for Bidirectional Iterator
  */
 template <typename II, typename OI>
 OI shift_right_digits (II b, II e, int n, OI x) {
-    // <your code>
-    return x;}
+    for( int i = 0; i < n; ++i)
+        --e;
+
+    for(; b!=e; ++b, ++x)
+        *x = *b;
+
+
+
+    return x;
+}
 
 // -----------
 // plus_digits
@@ -76,8 +89,67 @@ OI shift_right_digits (II b, II e, int n, OI x) {
  */
 template <typename II1, typename II2, typename OI>
 OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-    // <your code>
-    return x;}
+    if(DEBUG) cerr << "plus_digits()..." << endl;
+    int carry = 0;
+    --b1;   // issue #8
+    --b2;
+
+    for(--e1, --e2; e1 != b1 and e2 != b2; --x){
+        *x = *e1 + *e2;
+        if(carry == 1) {
+            ++*x;
+            carry = 0;
+        }
+        if(*x > 9) {
+            *x -= 10;
+            carry = 1;
+        }
+
+
+        --e1, --e2;
+        if(DEBUG) cerr << "*x: " << *x << endl;
+    }
+
+
+
+
+
+    II1 * e;
+    II2 * b;
+    // if e1 and e2 at beginning
+    if(e1 == b1 && e2 == b2) {
+        if(carry == 1) {
+            *x = 1; }
+        return x;
+    }
+
+    // if e1 is longer
+    else if(e2 == b2) {
+        e = &e1;
+        b = &b1;
+    }
+
+    // if e2 is longer
+    else {
+        e = &e2;
+        b = &b2;
+    }
+
+    for(; e != b; --e, --x){
+        *x = **e;
+        if(carry == 1) {
+            ++*x;
+            carry = 0;
+        }
+
+        if(*x > 9) {
+            *x -= 10;
+            carry = 1;
+        }
+    }
+
+    return x;
+}
 
 // ------------
 // minus_digits
