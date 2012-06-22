@@ -32,8 +32,14 @@
  */
 template <typename II, typename OI>
 OI shift_left_digits (II b, II e, int n, OI x) {
-    // <your code>
-    return x;}
+    for(;b != e; ++b, ++x)
+        *x = *b;
+    
+    for(int j = 0; j < n; ++j, ++x)
+        *x = 0;
+
+    return x;
+}
 
 // ------------------
 // shift_right_digits

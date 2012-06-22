@@ -1,9 +1,8 @@
 # file variables
 source="RunInteger.c++"
 unitFile="TestInteger.c++"
-inFile="RunInteger.in"
 outFile="RunInteger.out"
-unit=false
+unit=true
 
 if $unit; then
 echo COMPILING UNIT TESTS...
@@ -12,14 +11,14 @@ if ([ $? == 0 ]); then
 echo RUNNING UNIT TESTS...
 ./$unitFile.app #>& TestInteger.out
 #valgrind $unitFile.app >& TestSMP.out
-fi fi
+
 		
 if ([ $? == 0 ]); then
 echo COMPILING PROGRAM...
 g++ -ansi -pedantic -Wall $source -o $source.app
 if ([ $? == 0 ]); then		# if no errors
 echo RUNNING PROGRAM...
-./$source.app < $inFile #>& $outFile
+./$source.app #>& $outFile
 #valgrind ./$source.app < $inFile >& $outFile
 <<MULTICOMMENT
 echo CHECKING OUTPUT...; diff -lc RunInteger.out RunInteger.in
@@ -36,4 +35,4 @@ SphereInteger.c++ TestInteger.c++ TestInteger.out
 
 turnin --submit reza cs378pj3 Integer.zip
 MULTICOMMENT
-fi fi
+fi fi fi fi
