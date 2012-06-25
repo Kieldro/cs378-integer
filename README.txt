@@ -8,8 +8,8 @@ E-mail: kieldro@gmail.com
 Estimated number of hours: 12
 Actual    number of hours:
 
-Partner First Name: Robert
-Partner Last Name: 
+Partner First Name: Ryan
+Partner Last Name: Kluck
 Partner EID: 
 Partner E-mail: 
 Partner Estimated number of hours: 
