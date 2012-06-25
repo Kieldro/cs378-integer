@@ -13,10 +13,12 @@
 #include <cassert>   // assert
 #include <iostream>  // ostream
 #include <stdexcept> // invalid_argument
-#include <string>    // string
-#include <vector>    // vector
+#include <string>		// string
+#include <vector>		// vector
+#include <algorithm>		// reverse()
 
 //using namespace std;
+using std::cout;
 using std::cerr;
 using std::endl;
 using std::vector;
@@ -62,7 +64,7 @@ OI shift_right_digits (II b, II e, int n, OI x) {
 	for(; b != e; ++b)
 		temp.push_back(*b);
 	
-	for(int i = 0; i < temp.size()-n; ++i, ++x)
+	for(int i = 0; i < int(temp.size()-n); ++i, ++x)
 		*x = temp[i];
 
 	return x;
@@ -349,30 +351,52 @@ class Integer {
     private:
         // ----
         // data
-        // ----
-
-        // <your data>
+        C digits;
+        bool negative;
+        
+        
 
     private:
         // -----
         // valid
-        // -----
-
+        // invariant?
         bool valid () const {
             // <your code>
+            
             return true;}
 
-    public:
-        // ------------
-        // constructors
-        // ------------
+	public:
+		// ------------
+		// constructors
+		/**
+		 * <your documentation>
+		 * int value will be < 
+		 */
+		Integer (int value) {
+			if(DEBUG) cerr << "Integer(int)..." << endl;
+			if(value < 0){
+				negative = true;
+				value *= -1;
+			}else
+				negative = false;
 
-        /**
-         * <your documentation>
-         */
-        Integer (int value) {
-            // <your code>
-            assert(valid());}
+			for(int i = value%10; value != 0; value/=10, i=value%10)
+				digits.push_back(i);
+			
+			assert(digits.size() <= 10);
+			std::reverse(digits.begin(), digits.end() );
+			
+
+			if (DEBUG){		// print contents of an array
+				cerr << "digits: ";
+				int size = digits.size();
+				for(int i = 0; i < size; ++i)
+					cerr << " " << digits[i];
+				cerr << endl;
+			}
+			if(DEBUG) cerr << "end of Integer(int)." << endl;
+			assert(valid() );
+		}
 
         /**
          * <your documentation>
@@ -390,8 +414,6 @@ class Integer {
 
         // ----------
         // operator -
-        // ----------
-
         /**
          * <your documentation>
          */

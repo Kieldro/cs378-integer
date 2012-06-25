@@ -27,10 +27,12 @@ To document the program:
 #include <deque>    // deque
 #include "Integer.h"
 
+//using std::deque;
+
 // ----
 // main
 int main () {
-	using namespace std;
+	using namespace std;	// why is this needed for ios_base?
 	ios_base::sync_with_stdio(false);         // turn off synchronization with C I/O
 	cout << "RunInteger.c++" << endl << endl;
 
@@ -44,7 +46,8 @@ int main () {
 	}
 
 	{
-	const Integer< int, std::deque<int> > n = Integer< int, std::deque<int> >(2).pow(4423) - 1;
+	const Integer< int, deque<int> > n =
+		Integer< int, deque<int> >(2).pow(4423) - 1;
 	cout << "2^4423 - 1 = " << n << endl << endl;
 	}
 
