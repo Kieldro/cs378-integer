@@ -60,10 +60,10 @@ struct TestInteger : CppUnit::TestFixture {
 
     void test_shift_right_digits () {
         const int a[] = {2, 3, 4};
-        const int b[] = {2};
+        const int b[] = {2};        // answer
               int x[10];
         const int* p = shift_right_digits(a, a + 3, 2, x);
-        CPPUNIT_ASSERT((p - x) == 1);
+        CPPUNIT_ASSERT((p - x) == 1);       // length of answer
         CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, b));}
 
     // -----------
@@ -80,7 +80,7 @@ struct TestInteger : CppUnit::TestFixture {
         if (DEBUG){     // print contents of an array
             cerr << "x: ";
             int size = sizeof(x)/sizeof(*x);
-            for(int i = 0; (unsigned)i < 10; ++i)
+            for(int i = 0; i < size; ++i)
                 cerr << " " << x[i];
             cerr << endl;
         }

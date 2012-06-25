@@ -10,20 +10,19 @@
 
 // --------
 // includes
-// --------
-
 #include <cassert>   // assert
 #include <iostream>  // ostream
 #include <stdexcept> // invalid_argument
 #include <string>    // string
 #include <vector>    // vector
 
-using namespace std;
+//using namespace std;
+using std::cerr;
+using std::endl;
+using std::vector;
 
 // -----------------
 // shift_left_digits
-// -----------------
-
 /**
  * @param b an iterator to the beginning of an input  sequence (inclusive)
  * @param e an iterator to the end       of an input  sequence (exclusive)
@@ -32,23 +31,21 @@ using namespace std;
  * the sequences are of decimal digits
  * output the shift left of the input sequence into the output sequence
  * (s << n) => x
- * Implemented for Input Iterator
+ * complexity O(n)
  */
 template <typename II, typename OI>
 OI shift_left_digits (II b, II e, int n, OI x) {
-    for(;b != e; ++b, ++x)
-        *x = *b;
+	for(;b != e; ++b, ++x)
+		*x = *b;
 
-    for(int j = 0; j < n; ++j, ++x)
-        *x = 0;
+	for(int j = 0; j < n; ++j, ++x)
+		*x = 0;
 
-    return x;
+	return x;
 }
 
 // ------------------
 // shift_right_digits
-// ------------------
-
 /**
  * @param b an iterator to the beginning of an input  sequence (inclusive)
  * @param e an iterator to the end       of an input  sequence (exclusive)
@@ -57,25 +54,22 @@ OI shift_left_digits (II b, II e, int n, OI x) {
  * the sequences are of decimal digits
  * output the shift right of the input sequence into the output sequence
  * (s >> n) => x
- * Implemented for Bidirectional Iterator
+ * complexity O(2n)
  */
 template <typename II, typename OI>
 OI shift_right_digits (II b, II e, int n, OI x) {
-    for( int i = 0; i < n; ++i)
-        --e;
+	vector<int> temp;
+	for(; b != e; ++b)
+		temp.push_back(*b);
+	
+	for(int i = 0; i < temp.size()-n; ++i, ++x)
+		*x = temp[i];
 
-    for(; b!=e; ++b, ++x)
-        *x = *b;
-
-
-
-    return x;
+	return x;
 }
 
 // -----------
 // plus_digits
-// -----------
-
 /**
  * @param b  an iterator to the beginning of an input  sequence (inclusive)
  * @param e  an iterator to the end       of an input  sequence (exclusive)
@@ -89,72 +83,48 @@ OI shift_right_digits (II b, II e, int n, OI x) {
  */
 template <typename II1, typename II2, typename OI>
 OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-    if(DEBUG) cerr << "plus_digits()..." << endl;
-    int carry = 0;
-    --b1;   // issue #8
-    --b2;
+	if(DEBUG) cerr << "plus_digits()..." << endl;
+	int carry = 0;
+	--b1;	// issue #8
+	--b2;
+	// bidirectional?
+	for(x += 0, --e1, --e2; e1 != b1 or e2 != b2; --x){
+		if(e1 != b1 and e2 != b2)
+			*x = *e1 + *e2;
+		// stop incrementing e1 or e2 past begining
+		if(e1 == b1)		// e1 finished
+			*x = 0 + *e2;
+		else
+			--e1;
+		if(e2 == b2)		// e2 finished
+			*x = *e1 + 0;
+		else
+			--e2;
 
-    for(--e1, --e2; e1 != b1 and e2 != b2; --x){
-        *x = *e1 + *e2;
-        if(carry == 1) {
-            ++*x;
-            carry = 0;
-        }
-        if(*x > 9) {
-            *x -= 10;
-            carry = 1;
-        }
+		// add carry
+		if(carry == 1) {
+			++*x;
+			carry = 0;
+		}
+		if(*x > 9) {
+			*x -= 10;
+			carry = 1;
+		}
 
+		if(DEBUG) cerr << "*x: " << *x << endl;
+	}
 
-        --e1, --e2;
-        if(DEBUG) cerr << "*x: " << *x << endl;
-    }
+	//--x;
+	if(carry == 1){
+		*x = 1;
+	}
+	if(DEBUG) cerr << "*x: " << *x << endl;
 
-
-
-
-
-    II1 * e;
-    II2 * b;
-    // if e1 and e2 at beginning
-    if(e1 == b1 && e2 == b2) {
-        if(carry == 1) {
-            *x = 1; }
-        return x;
-    }
-
-    // if e1 is longer
-    else if(e2 == b2) {
-        e = &e1;
-        b = &b1;
-    }
-
-    // if e2 is longer
-    else {
-        e = &e2;
-        b = &b2;
-    }
-
-    for(; e != b; --e, --x){
-        *x = **e;
-        if(carry == 1) {
-            ++*x;
-            carry = 0;
-        }
-
-        if(*x > 9) {
-            *x -= 10;
-            carry = 1;
-        }
-    }
-
-    return x;
+	return x;
 }
 
 // ------------
 // minus_digits
-// ------------
-
 /**
  * @param b  an iterator to the beginning of an input  sequence (inclusive)
  * @param e  an iterator to the end       of an input  sequence (exclusive)
