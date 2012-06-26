@@ -113,7 +113,7 @@ OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {if(DEBUG) cerr << "plus_d
 	
 	for(int i = 0; i < maxLen; ++i){
 		if(i > length1 && i < length2){
-			temp = number1[i] + carry;
+			temp = number2[i] + carry;
 			if(temp > 9){
 				carry = 1;
 				temp -= 10;
@@ -124,7 +124,7 @@ OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {if(DEBUG) cerr << "plus_d
 			}
 		}
 		if(i < length1 && i > length2){
-			temp = number2[i] + carry;
+			temp = number1[i] + carry;
 			if(temp > 9){
 				carry = 1;
 				temp -= 10;
@@ -285,7 +285,7 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 	int temp = 0;
 	for(int i = 0; i < maxLen; ++i){
 		if(i > length1 && i < length2){
-			temp = number1[i] + carry;
+			temp = number2[i] + carry;
 			if(temp > 9){
 				carry = 1;
 				temp -= 10;
@@ -296,7 +296,7 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 			}
 		}
 		if(i < length1 && i > length2){
-			temp = number2[i] + carry;
+			temp = number1[i] + carry;
 			if(temp > 9){
 				carry = 1;
 				temp -= 10;
@@ -321,8 +321,8 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 	}
 	if(carry == 1){
 		output.push_back(1);
-		++maxLen;
 	}
+        cout<<"fucker"<<endl;
         return output;
 }
 
@@ -345,7 +345,7 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 template <typename II1, typename II2, typename OI>
 OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	// <your code>
-    vector < int > number1;
+   /* vector < int > number1;
     vector < int > number2;
     int length1 = 0;
     int length2 = 0;
@@ -377,9 +377,6 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
     vector < int > output;
     int count = 0;
     while (counter < length2){
-
-
-
         val = number2[counter];
 
         temp = table[val];
@@ -391,13 +388,14 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
        		 }
        		 reverse(temp.begin(), temp.end());
 	}
-        output = vector_add(output, temp);         
+        output = vector_add(output, temp);
+        cout<<"dipshit"<<endl; 
     }
     int outputLen = (int) output.size();
     for(int j = outputLen-1; j >= 0; --j){
 	*x = output[j];
 	++x;
-    }
+    }*/
 		
     return x;
 }
