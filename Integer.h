@@ -285,7 +285,44 @@ OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {vector < int > number1;
 template <typename II1, typename II2, typename OI>
 OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	// <your code>
-	
+	    vector < int > number1;
+    vector < int > number2;
+    int length1 = 0;
+    int length2 = 0;
+    for(;b1 != e1; ++b1){
+	number1.push_back(*b1);
+        ++length1;
+    }
+    for(;b2 != e2; ++b2){
+        number2.push_back(*b2);
+        ++length2;
+    }
+    vector < vector < int > > table(10);
+    vector < int > empty(1);
+    empty[0] = 0;
+    vector < int > first;
+    first = number1;
+    table[0] = empty;
+    table[1] = first;
+    //int counter = 2;
+    /*vector < int > v;
+    vector< int >* first = &number1;
+    vector< int >* last = first + length1;*/
+    int counter = 2;
+    //int retVal[length1 +1];
+    vector < int > retVal;
+    while(counter <= 9){
+        if(counter == 2)
+		plus_digits(number1.begin(), number1.end(), number1.begin(), number1.end(), retVal);
+        else
+ 		plus_digits(first.begin(), first.end(), first.begin(), first.end(), retVal);
+        for(int i = 0; i < length1+1; ++i){
+            first[i] = retVal[i];
+        }
+        table[counter] = first;
+        ++counter;
+    }
+    cout<<"asshole"<<endl;
 	
 	return x;
 }
