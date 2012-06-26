@@ -84,44 +84,79 @@ OI shift_right_digits (II b, II e, int n, OI x) {
  * (s1 + s2) => x
  */
 template <typename II1, typename II2, typename OI>
-OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-	if(DEBUG) cerr << "plus_digits()..." << endl;
+OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {if(DEBUG) cerr << "plus_digits()..." << endl;
+	vector < int > number1;
+	vector < int > number2;
+	int length1 = 0;
+	int length2 = 0;
+	
+	for(;b1 != e1; ++b1){
+		number1.push_back(*b1);
+		++length1;
+	}
+	reverse(number1.begin(), number1.end());
+	//can readjust to remove need for reverse
+	for(;b2 != e2; ++b2){
+		number2.push_back(*b2);
+		++length2;
+	}
+	reverse(number2.begin(), number2.end());
+	int maxLen = -1;
+	if(length1 >= length2)
+		maxLen = length1;
+	else
+		maxLen = length2;
+	
+	vector < int > output(maxLen);
 	int carry = 0;
-	--b1;	// issue #8
-	--b2;
-	// bidirectional?
-	for(x += 0, --e1, --e2; e1 != b1 or e2 != b2; --x){
-		if(e1 != b1 and e2 != b2)
-			*x = *e1 + *e2;
-		// stop incrementing e1 or e2 past begining
-		if(e1 == b1)		// e1 finished
-			*x = 0 + *e2;
-		else
-			--e1;
-		if(e2 == b2)		// e2 finished
-			*x = *e1 + 0;
-		else
-			--e2;
-
-		// add carry
-		if(carry == 1) {
-			++*x;
-			carry = 0;
+	int temp = 0;
+	
+	for(int i = 0; i < maxLen; ++i){
+		if(i > length1 && i < length2){
+			temp = number1[i] + carry;
+			if(temp > 9){
+				carry = 1;
+				temp -= 10;
+				output[i] = temp;
+			}else{
+				output[i] = temp;
+				carry = 0;
+			}
 		}
-		if(*x > 9) {
-			*x -= 10;
-			carry = 1;
+		if(i < length1 && i > length2){
+			temp = number2[i] + carry;
+			if(temp > 9){
+				carry = 1;
+				temp -= 10;
+				output[i] = temp;
+			}else{
+				output[i] = temp;
+				carry = 0;
+			}
+		}else{
+			temp = number1[i] + number2[i];
+			temp += carry;
+			if(temp > 9){
+				carry = 1;
+				temp -= 10;
+				output[i] = temp;
+			}else{
+				output[i] = temp;
+				carry = 0;
+			}
 		}
 
-		if(DEBUG) cerr << "*x: " << *x << endl;
 	}
-
-	//--x;
 	if(carry == 1){
-		*x = 1;
+		output.push_back(1);
+		++maxLen;
 	}
-	if(DEBUG) cerr << "*x: " << *x << endl;
 
+	for(int j = maxLen-1; j >= 0; --j){
+		*x = output[j];
+		++x;
+	}
+	
 	return x;
 }
 
@@ -139,9 +174,98 @@ OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
  * (s1 - s2) => x
  */
 template <typename II1, typename II2, typename OI>
-OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-    // <your code>
-    return x;}
+OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {vector < int > number1;
+	vector < int > number2;
+	int length1 = 0;
+	int length2 = 0;
+	
+	for(;b1 != e1; ++b1){
+		number1.push_back(*b1);
+		++length1;
+	}
+	for(;b2 != e2; ++b2){
+		number2.push_back(*b2);
+		++length2;
+	}
+	
+	int maxLen = length1;
+	int diff = -1;
+	int count = 0;
+
+	if(length1 > length2){
+		diff = length1 - length2;
+		while(count < diff){
+			number2.push_back(0);
+			++count;
+		}
+		int index1 = length1 - 1;
+		int index2 = length2 - 1;
+		int temporary = 0;
+		while(index2 >= 0){
+			temporary = number2[index2];
+			number2[index2] = number2[index1];
+			number2[index1] = temporary;
+			--index2;
+		}
+	}
+
+	vector < int > output(maxLen);
+	int lastLocation = -1;
+	int val = 0;
+	int num1 = 0;
+	int num2 = 0;
+	int temp = 0;
+
+	for(int i = 0; i < maxLen; ++i){
+		if(i == 0){
+			num1 = number1[i];
+			num2 = number2[i];
+			val = num1-num2;
+			output[i] = val;
+			lastLocation = i;
+			continue;
+		}
+		else{
+			num1 = number1[i];
+			num2 = number2[i];
+			if(num1 > num2){
+				val = num1 - num2;
+				output[i] = val;
+				if(val != 0)
+					lastLocation = i;
+			}
+			else{
+				temp = output[lastLocation];
+				temp -= 1;
+				output[lastLocation] = temp;
+				++lastLocation;
+				if(lastLocation == i){
+					num1 += 10;
+					val = num1-num2;
+					output[i] = val;
+					lastLocation = i;
+				}else{
+					while(lastLocation < i){
+						output[lastLocation] = 9;
+						++lastLocation;
+					}
+					num1+= 10;
+					val = num1-num2;
+					output[i] = val;
+					lastLocation = i;
+				}
+			}
+		}
+	}
+	
+	for(int j = 0; j < maxLen; ++j){
+		cout<<output[j];
+		*x = output[j];
+		++x;
+	}
+	
+	return x;
+}
 
 // -----------------
 // multiplies_digits
@@ -160,8 +284,11 @@ OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
  */
 template <typename II1, typename II2, typename OI>
 OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-    // <your code>
-    return x;}
+	// <your code>
+	
+	
+	return x;
+}
 
 // --------------
 // divides_digits

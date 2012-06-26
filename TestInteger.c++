@@ -242,9 +242,9 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_shift_left_digits);
 	CPPUNIT_TEST(test_shift_right_digits);
 	CPPUNIT_TEST(test_constructor_3);
-//	CPPUNIT_TEST(test_plus_digits);
-	/*   CPPUNIT_TEST(test_minus_digits);
-	CPPUNIT_TEST(test_multiplies_digits);
+	CPPUNIT_TEST(test_plus_digits);
+	CPPUNIT_TEST(test_minus_digits);
+/*	CPPUNIT_TEST(test_multiplies_digits);
 	CPPUNIT_TEST(test_divides_digits);
 	CPPUNIT_TEST(test_constructor_2);
 	CPPUNIT_TEST(test_constructor_1);
