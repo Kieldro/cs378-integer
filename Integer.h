@@ -267,6 +267,66 @@ OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {vector < int > number1;
 	return x;
 }
 
+
+// -----------------
+// vector_add
+// -----------------
+
+vector < int > vector_add(vector < int > number1, vector < int > number2){
+	int length1 = (int) number1.size();
+        int length2 = (int) number2.size();
+        int maxLen = -1;
+        if(length1 > length2)
+            maxLen = length1;
+        else
+            maxLen = length2;
+	vector < int > output(maxLen);
+	int carry = 0;
+	int temp = 0;
+	for(int i = 0; i < maxLen; ++i){
+		if(i > length1 && i < length2){
+			temp = number1[i] + carry;
+			if(temp > 9){
+				carry = 1;
+				temp -= 10;
+				output[i] = temp;
+			}else{
+				output[i] = temp;
+				carry = 0;
+			}
+		}
+		if(i < length1 && i > length2){
+			temp = number2[i] + carry;
+			if(temp > 9){
+				carry = 1;
+				temp -= 10;
+				output[i] = temp;
+			}else{
+				output[i] = temp;
+				carry = 0;
+			}
+		}else{
+			temp = number1[i] + number2[i];
+			temp += carry;
+			if(temp > 9){
+				carry = 1;
+				temp -= 10;
+				output[i] = temp;
+			}else{
+				output[i] = temp;
+				carry = 0;
+			}
+		}
+
+	}
+	if(carry == 1){
+		output.push_back(1);
+		++maxLen;
+	}
+        return output;
+}
+
+
 // -----------------
 // multiplies_digits
 // -----------------
@@ -285,7 +345,7 @@ OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {vector < int > number1;
 template <typename II1, typename II2, typename OI>
 OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	// <your code>
-	    vector < int > number1;
+   /* vector < int > number1;
     vector < int > number2;
     int length1 = 0;
     int length2 = 0;
@@ -293,38 +353,49 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	number1.push_back(*b1);
         ++length1;
     }
+    reverse(number1.begin(), number1.end());
     for(;b2 != e2; ++b2){
         number2.push_back(*b2);
         ++length2;
     }
+    reverse(number1.begin(), number1.end());
     vector < vector < int > > table(10);
     vector < int > empty(1);
     empty[0] = 0;
-    vector < int > first;
-    first = number1;
+    vector < int > tableEntry = number1;
     table[0] = empty;
-    table[1] = first;
-    //int counter = 2;
-    /*vector < int > v;
-    vector< int >* first = &number1;
-    vector< int >* last = first + length1;*/
+    table[1] = tableEntry;
     int counter = 2;
-    //int retVal[length1 +1];
-    vector < int > retVal;
     while(counter <= 9){
-        if(counter == 2)
-		plus_digits(number1.begin(), number1.end(), number1.begin(), number1.end(), retVal);
-        else
- 		plus_digits(first.begin(), first.end(), first.begin(), first.end(), retVal);
-        for(int i = 0; i < length1+1; ++i){
-            first[i] = retVal[i];
-        }
-        table[counter] = first;
-        ++counter;
+		tableEntry = vector_add(number1, tableEntry);
+                table[counter] = tableEntry;
+                ++counter;
     }
-    cout<<"asshole"<<endl;
-	
-	return x;
+    counter = 0;
+    vector < int > temp;
+    int val = -1;
+    vector < int > output;
+    int count = 0;
+    while (counter < length2){
+        val = number2[counter]
+        temp = table[val];
+        if(counter != 0){
+        	reverse(temp.begin(), temp.end());
+       		while(count < counter){
+            		temp.push_back(0);
+            		++count;
+       		 }
+       		 reverse(temp.begin(), temp.end());
+	}
+        output = vector_add(output, temp);         
+    }
+    int outputLen = (int) output.size();
+    for(int j = outputLen-1; j >= 0; --j){
+	*x = output[j];
+	++x;
+    }
+		
+    return x;*/
 }
 
 // --------------
