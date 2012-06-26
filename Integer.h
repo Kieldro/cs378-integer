@@ -345,7 +345,7 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 template <typename II1, typename II2, typename OI>
 OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	// <your code>
-   /* vector < int > number1;
+    vector < int > number1;
     vector < int > number2;
     int length1 = 0;
     int length2 = 0;
@@ -377,7 +377,7 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
     vector < int > output;
     int count = 0;
     while (counter < length2){
-        val = number2[counter]
+        val = number2[counter];
         temp = table[val];
         if(counter != 0){
         	reverse(temp.begin(), temp.end());
@@ -395,7 +395,7 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	++x;
     }
 		
-    return x;*/
+    return x;
 }
 
 // --------------
