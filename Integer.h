@@ -307,40 +307,36 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
  */
 template <typename II1, typename II2, typename OI>
 OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-    // <your code>
-    return x;}
+	// <your code>
+	return x;
+}
 
 // -------
 // Integer
-// -------
-
 template < typename T, typename C = std::vector<T> >
 class Integer {
-    // -----------
-    // operator ==
-    // -----------
+	// -----------
+	// operator ==
+	/**
+	 * <your documentation>
+	 */
+	friend bool operator == (const Integer& lhs, const Integer& rhs) {
+		// <your code>
+		
+		
+		return false;
+	}
 
-    /**
-     * <your documentation>
-     */
-    friend bool operator == (const Integer& lhs, const Integer& rhs) {
-        // <your code>
-        return false;}
-
-    // -----------
-    // operator !=
-    // -----------
-
-    /**
-     * <your documentation>
-     */
-    friend bool operator != (const Integer& lhs, const Integer& rhs) {
-        return !(lhs == rhs);}
+	// -----------
+	// operator !=
+	/**
+	 * <your documentation>
+	 */
+	friend bool operator != (const Integer& lhs, const Integer& rhs) {
+		return !(lhs == rhs);}
 
     // ----------
     // operator <
-    // ----------
-
     /**
      * <your documentation>
      */
@@ -350,8 +346,6 @@ class Integer {
 
     // -----------
     // operator <=
-    // -----------
-
     /**
      * <your documentation>
      */
@@ -440,50 +434,46 @@ class Integer {
     friend Integer operator << (Integer lhs, int rhs) {
         return lhs <<= rhs;}
 
-    // -----------
-    // operator >>
-    // -----------
+	// -----------
+	// operator >>
+	/**
+	 * <your documentation>
+	 */
+	friend Integer operator >> (Integer lhs, int rhs) {
+		return lhs >>= rhs;}
 
-    /**
-     * <your documentation>
-     */
-    friend Integer operator >> (Integer lhs, int rhs) {
-        return lhs >>= rhs;}
+	// -----------
+	// operator <<
+	/**
+	 * <your documentation>
+	 */
+	friend std::ostream& operator << (std::ostream& lhs, const Integer& rhs) {
+		/*for(C::iterator it = rhs.digits.begin(); it < rhs.digits.end(); ++it)
+			lhs << *it;
+*/
+		return lhs;
+	}
 
-    // -----------
-    // operator <<
-    // -----------
+	// ---
+	// pow
+	// ---
 
-    /**
-     * <your documentation>
-     */
-    friend std::ostream& operator << (std::ostream& lhs, const Integer& rhs) {
-        // <your code>
-        return lhs << "0";}
+	/**
+	 * power
+	 * does NOT modify the argument
+	 * <your documentation>
+	 * @throws invalid_argument if (x == 0) && (e == 0)
+	 * @throws invalid_argument if (e < 0)
+	 */
+	friend Integer pow (Integer x, int e) {
+		return x.pow(e);}
 
-    // ---
-    // pow
-    // ---
-
-    /**
-     * power
-     * does NOT modify the argument
-     * <your documentation>
-     * @throws invalid_argument if (x == 0) && (e == 0)
-     * @throws invalid_argument if (e < 0)
-     */
-    friend Integer pow (Integer x, int e) {
-        return x.pow(e);}
-
-    private:
-        // ----
-        // data
-        C digits;
-        bool negative;
-        
-        
-
-    private:
+	private:
+		// ----
+		// data
+		C digits;
+		bool negative;
+	private:
         // -----
         // valid
         // invariant?
@@ -497,7 +487,7 @@ class Integer {
 		// constructors
 		/**
 		 * <your documentation>
-		 * int value will be < 
+		 * int value will be <= 2147483647 
 		 */
 		Integer (int value) {
 			if(DEBUG) cerr << "Integer(int)..." << endl;
@@ -702,6 +692,6 @@ class Integer {
  */
 template <typename T, typename C>
 Integer<T, C> abs (Integer<T, C> x) {
-    return x.abs();}
+	return x.abs();}
 
 #endif // Integer_h

@@ -125,7 +125,14 @@ struct TestInteger : CppUnit::TestFixture {
 
 	// -----------
 	// constructor
+
 	void test_constructor_1 () {
+		try {
+			const Integer<int> x(2147483647);}		// max int value
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}
+	}
+	void test_constructor_2 () {
 		try {
 			const Integer<int> x("abc");
 			CPPUNIT_ASSERT(false);}
@@ -133,18 +140,12 @@ struct TestInteger : CppUnit::TestFixture {
 			CPPUNIT_ASSERT(strcmp(e.what(), "Integer()"));}
 	}
 
-	void test_constructor_2 () {
-	    try {
-	        const Integer<int> x("2");}
-	    catch (std::invalid_argument& e) {
-	        CPPUNIT_ASSERT(false);}
-	}
-
 	void test_constructor_3 () {
-	    try {
-	        const Integer<int> x(21);}
-	    catch (std::invalid_argument& e) {
-	        CPPUNIT_ASSERT(false);}}
+		try {
+			const Integer<int> x("2");}
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}
+	}
 
 	// ---
 	// abs
@@ -197,8 +198,6 @@ struct TestInteger : CppUnit::TestFixture {
 
 	// ------
 	// output
-	// ------
-
 	void test_output () {
 	    try {
 	        const Integer<int> x = 98765;
@@ -224,15 +223,16 @@ struct TestInteger : CppUnit::TestFixture {
 	        CPPUNIT_ASSERT(false);}}
 
 	void test_pow_2 () {
-	    try {
-	        const Integer<int> x = 98765;
-	        const int          e =  9867;
-	        const Integer<int> y = pow(x, e);
-	        CPPUNIT_ASSERT(x == 98765);
-	        CPPUNIT_ASSERT(e ==  9867);
-	        CPPUNIT_ASSERT(y ==     0);}
-	    catch (std::invalid_argument& e) {
-	        CPPUNIT_ASSERT(false);}}
+		try {
+			const Integer<int> x = 98765;
+			const int          e =  9867;
+			const Integer<int> y = pow(x, e);
+			CPPUNIT_ASSERT(x == 98765);
+			CPPUNIT_ASSERT(e ==  9867);
+			CPPUNIT_ASSERT(y ==     0);}
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}
+	}
 
 	// -----
 	// suite
@@ -241,20 +241,20 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST_SUITE(TestInteger);
 	CPPUNIT_TEST(test_shift_left_digits);
 	CPPUNIT_TEST(test_shift_right_digits);
-	CPPUNIT_TEST(test_constructor_3);
 	CPPUNIT_TEST(test_plus_digits);
 	CPPUNIT_TEST(test_minus_digits);
-/*	CPPUNIT_TEST(test_multiplies_digits);
-	CPPUNIT_TEST(test_divides_digits);
-	CPPUNIT_TEST(test_constructor_2);
 	CPPUNIT_TEST(test_constructor_1);
+	CPPUNIT_TEST(test_constructor_2);
+/*	CPPUNIT_TEST(test_constructor_3);
+	CPPUNIT_TEST(test_multiplies_digits);
+	CPPUNIT_TEST(test_divides_digits);
 	CPPUNIT_TEST(test_abs_1);
 	CPPUNIT_TEST(test_abs_2);
 	CPPUNIT_TEST(test_negation);
 	CPPUNIT_TEST(test_output);
 	CPPUNIT_TEST(test_pow_1);
 	CPPUNIT_TEST(test_pow_2);
-	*/   CPPUNIT_TEST_SUITE_END();};
+	*/CPPUNIT_TEST_SUITE_END();};
 
 // ----
 // main
@@ -262,11 +262,11 @@ int main () {
 	using namespace std;
 	ios_base::sync_with_stdio(false);          // turn off synchronization with C I/O
 	cout << "TestInteger.c++" << endl << endl;
-
+	
 	CppUnit::TextTestRunner tr;
 	tr.addTest(TestInteger::suite());
 	tr.run();
-
+	
 	cout << "Done." << endl;
 	return 0;
 }
