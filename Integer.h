@@ -284,7 +284,7 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 	int carry = 0;
 	int temp = 0;
 	for(int i = 0; i < maxLen; ++i){
-		if(i > length1 && i < length2){
+		if(i >= length1 && i < length2){
 			temp = number2[i] + carry;
 			if(temp > 9){
 				carry = 1;
@@ -295,7 +295,7 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 				carry = 0;
 			}
 		}
-		if(i < length1 && i > length2){
+		if(i < length1 && i >= length2){
 			temp = number1[i] + carry;
 			if(temp > 9){
 				carry = 1;
@@ -312,20 +312,45 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 				carry = 1;
 				temp -= 10;
 				output[i] = temp;
-			}else{
+			}
+                        else{
 				output[i] = temp;
 				carry = 0;
 			}
 		}
+               /* cout<<"number1 is:"<<number1[i]<<endl;
+                cout<<"number2 is:"<<number2[i]<<endl;
+                cout<<"temp is: "<<temp<<endl;
+                cout<<"carry is: "<<carry<<endl;*/
 
 	}
 	if(carry == 1){
 		output.push_back(1);
 	}
-        cout<<"fucker"<<endl;
         return output;
 }
 
+
+// -----------------
+// generateTable
+// -----------------
+vector < vector < int > > generateTable(vector < int > number){
+    vector < vector < int > > output(10);
+    vector < int > empty(1); 
+    empty[0] = 0;
+    output[0] = empty;
+    output[1] = number;
+    vector < int > copy;
+    int size = number.size();
+    for(int i = 0; i < size; ++i){
+        copy.push_back(number[i]);
+    }
+    for(int j = 2; j <= 9; ++j){
+        copy = vector_add(copy, number);
+        output[j] = copy;
+    }
+    return output;
+}
 
 // -----------------
 // multiplies_digits
@@ -345,7 +370,7 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 template <typename II1, typename II2, typename OI>
 OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	// <your code>
-   /* vector < int > number1;
+    vector < int > number1;
     vector < int > number2;
     int length1 = 0;
     int length2 = 0;
@@ -358,45 +383,40 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
         number2.push_back(*b2);
         ++length2;
     }
-    reverse(number1.begin(), number1.end());
+    reverse(number2.begin(), number2.end());
     vector < vector < int > > table(10);
-    vector < int > empty(1);
-    empty[0] = 0;
-    vector < int > tableEntry = number1;
-    table[0] = empty;
-    table[1] = tableEntry;
-    int counter = 2;
-    while(counter <= 9){
-		tableEntry = vector_add(number1, tableEntry);
-                table[counter] = tableEntry;
-                ++counter;
-    }
-    counter = 0;
+    table = generateTable(number1);
+    int counter = 0;
     vector < int > temp;
     int val = -1;
-    vector < int > output;
+    vector < int > output(1);
+    output[0] = 0;
     int count = 0;
+    vector < int > zeroes;
     while (counter < length2){
         val = number2[counter];
-
         temp = table[val];
         if(counter != 0){
-        	reverse(temp.begin(), temp.end());
        		while(count < counter){
-            		temp.push_back(0);
-            		++count;
+                        zeroes.push_back(0);
+                        ++count;
        		 }
-       		 reverse(temp.begin(), temp.end());
+	         temp.insert( temp.begin(), zeroes.begin(), zeroes.end() );
 	}
-        output = vector_add(output, temp);
-        cout<<"dipshit"<<endl; 
+        if(counter == 0){
+            output = temp;
+        }
+        else{
+            output = vector_add(output, temp);
+        }
+        ++counter;
     }
+    
     int outputLen = (int) output.size();
     for(int j = outputLen-1; j >= 0; --j){
 	*x = output[j];
 	++x;
-    }*/
-		
+    }	
     return x;
 }
 
@@ -789,6 +809,7 @@ class Integer {
          */
         Integer& pow (int e) {
             // <your code>
+            
             return *this;}};
 
 // ---
