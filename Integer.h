@@ -84,7 +84,8 @@ OI shift_right_digits (II b, II e, int n, OI x) {
  * (s1 + s2) => x
  */
 template <typename II1, typename II2, typename OI>
-OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {if(DEBUG) cerr << "plus_digits()..." << endl;
+OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
+	//if(DEBUG) cerr << "plus_digits()..." << endl;
 	vector < int > number1;
 	vector < int > number2;
 	int length1 = 0;
@@ -590,22 +591,47 @@ class Integer {
 	friend bool operator != (const Integer& lhs, const Integer& rhs) {
 		return !(lhs == rhs);}
 
-    // ----------
-    // operator <
-    /**
-     * <your documentation>
-     */
-    friend bool operator < (const Integer& lhs, const Integer& rhs) {
-        // <your code>
-        return false;}
+	// ----------
+	// operator <
+	/**
+	 * <your documentation>
+	 */
+	friend bool operator < (const Integer& lhs, const Integer& rhs) {
+		if (lhs.negative and !rhs.negative)
+			return true;
+		if(!lhs.negative and rhs.negative)
+			return false;
+		
+		if(lhs.digits.size() < rhs.digits.size() )
+			return lhs.negative ? !true : true;
+		if(lhs.digits.size() > rhs.digits.size() )
+			return lhs.negative ? !false : false;
+		
+		assert(lhs.digits.size() == rhs.digits.size() );
+		assert(lhs.negative == rhs.negative);
+		
+		typename C::const_iterator b0 = lhs.digits.begin();
+		typename C::const_iterator b1 = rhs.digits.begin();
+		typename C::const_iterator e0 = lhs.digits.end();
+		typename C::const_iterator e1 = rhs.digits.end();
+		
+		for(; b0 != e0 and b1 != e1; ++b0, ++b1)
+			if(*b0 < *b1)
+				return lhs.negative ? !true : true;
+			else if(*b0 > *b1)
+				return lhs.negative ? !false : false;
+		
+		// equal
+		return false;
+	}
 
-    // -----------
-    // operator <=
-    /**
-     * <your documentation>
-     */
-    friend bool operator <= (const Integer& lhs, const Integer& rhs) {
-        return !(rhs < lhs);}
+	// -----------
+	// operator <=
+	/**
+	 * <your documentation>
+	 */
+	friend bool operator <= (const Integer& lhs, const Integer& rhs) {
+		return !(rhs < lhs);}
 
     // ----------
     // operator >
@@ -740,7 +766,7 @@ class Integer {
 		// ------------
 		// constructors
 		/**
-		 * <your documentation>
+		 * 
 		 * int value will be <= 2147483647 
 		 */
 		Integer (int value) {
@@ -877,8 +903,6 @@ class Integer {
 
         // -----------
         // operator %=
-        // -----------
-
         /**
          * <your documentation>
          * @throws invalid_argument if (rhs <= 0)
@@ -889,8 +913,6 @@ class Integer {
 
         // ------------
         // operator <<=
-        // ------------
-
         /**
          * <your documentation>
          */
@@ -900,8 +922,6 @@ class Integer {
 
         // ------------
         // operator >>=
-        // ------------
-
         /**
          * <your documentation>
          */
@@ -911,8 +931,6 @@ class Integer {
 
         // ---
         // abs
-        // ---
-
         /**
          * absolute value
          * <your documentation>
@@ -923,8 +941,6 @@ class Integer {
 
         // ---
         // pow
-        // ---
-
         /**
          * power
          * <your documentation>
@@ -932,9 +948,10 @@ class Integer {
          * @throws invalid_argument if (e < 0)
          */
         Integer& pow (int e) {
-            // <your code>
-            
-            return *this;}};
+        	
+            return *this;
+        }
+    };
 
 // ---
 // abs
