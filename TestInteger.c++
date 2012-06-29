@@ -86,6 +86,10 @@ struct TestInteger : CppUnit::TestFixture {
 		CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c) );
 	}
 
+
+
+
+
 	// ------------
 	// minus_digits
 	void test_minus_digits () {
@@ -243,12 +247,12 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_shift_right_digits);
 	CPPUNIT_TEST(test_plus_digits);
 	CPPUNIT_TEST(test_minus_digits);
-	CPPUNIT_TEST(test_constructor_1);
-	CPPUNIT_TEST(test_constructor_2);
-/*	CPPUNIT_TEST(test_constructor_3);
+//	CPPUNIT_TEST(test_constructor_1);
+//	CPPUNIT_TEST(test_constructor_2);
+//	CPPUNIT_TEST(test_constructor_3);
 	CPPUNIT_TEST(test_multiplies_digits);
 	CPPUNIT_TEST(test_divides_digits);
-	CPPUNIT_TEST(test_abs_1);
+	/*CPPUNIT_TEST(test_abs_1);
 	CPPUNIT_TEST(test_abs_2);
 	CPPUNIT_TEST(test_negation);
 	CPPUNIT_TEST(test_output);
