@@ -112,7 +112,7 @@ OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {if(DEBUG) cerr << "plus_d
 	int temp = 0;
 	
 	for(int i = 0; i < maxLen; ++i){
-		if(i > length1 && i < length2){
+		if(i >= length1 && i < length2){
 			temp = number2[i] + carry;
 			if(temp > 9){
 				carry = 1;
@@ -123,7 +123,7 @@ OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {if(DEBUG) cerr << "plus_d
 				carry = 0;
 			}
 		}
-		if(i < length1 && i > length2){
+		if(i < length1 && i >= length2){
 			temp = number1[i] + carry;
 			if(temp > 9){
 				carry = 1;
@@ -421,6 +421,70 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 }
 
 // --------------
+// isSmaller
+//
+// this method returns true if number1 is smaller than number2 else it returns false
+bool isLessThanOrEqual (vector < int > number1, vector < int > number2){
+    int length1 = (int)number1.size();
+    int length2 = (int)number2.size();
+    if(length1 > length2)
+        return false;
+    else{
+        if(length2 > length1)
+            return true;
+        else{
+                for(int i = 0; i < length1; ++i){
+                    if(number1[i] == number2[i])
+                         continue;
+                    if(number1[i] > number2[i])
+                         return false;
+                    else
+                         return true;
+                }
+        }
+    }
+    return true;
+}
+
+
+// -----------------
+// generateDivisionTable
+// -----------------
+vector < vector < int > > generateDivisionTable(vector < int > number){
+    vector < vector < int > > output(10);
+    vector < int > empty(1); 
+    empty[0] = 0;
+    output[0] = empty;
+    output[1] = number;
+    vector < int > copy;
+    int size = number.size();
+    for(int i = 0; i < size; ++i){
+        copy.push_back(number[i]);
+    }
+    for(int j = 2; j <= 9; ++j){
+        copy = vector_add(copy, number);
+        output[j] = copy;
+    }
+    for(int k = 0; k <= 9; ++k){
+        reverse(output[k].begin(), output[k].end());
+    }
+    return output;
+}
+
+// --------------
+// reverse_and_fix
+// --------------
+vector < int > reverse_and_fix(vector < int > number){
+    vector < int > output(number.size()-1);
+    int count = 0;
+    for(int j = (number.size()-2); j >=0; --j){
+        output[count] = number[j];
+        ++count;
+    }
+    return output;
+}
+
+// --------------
 // divides_digits
 // --------------
 
@@ -438,7 +502,58 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 template <typename II1, typename II2, typename OI>
 OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	// <your code>
-	return x;
+  /*  vector < int > number1;
+    vector < int > number2(2);
+    int length1 = 0;
+    int length2 = 0;
+    for(;b1 != e1; ++b1){
+	number1.push_back(*b1);
+        ++length1;
+    }
+    reverse(number1.begin(), number1.end());
+    for(;b2 != e2; ++b2){
+        number2.push_back(*b2);
+        ++length2;
+    }
+    reverse(number2.begin(), number2.end());
+    if(length1 < length2){
+        *x = 0;
+        return x;
+    }
+    vector < vector < int > > table(10);
+    table = generateTable(number2);
+    vector < int > temp;
+    for(int i = 0; i <=9; ++i){
+        temp = reverse_and_fix(table[i]);
+        table[i] = temp;
+    }
+    for(int j = 0; j < (int)table[3].size(); ++j){
+        cout<<table[3][j];
+    }
+    reverse(number1.begin(), number1.end());
+    reverse(number2.begin(), number2.end());
+    int count = 0;
+    int remainder = 0;
+    int counter = 0;
+    bool smaller = false;
+    vector < int > output;
+    while(count < length1){
+        vector < int > temp(1);
+        if(count == 0){
+            remainder = number1[0];
+        }
+        temp[0] = remainder;
+        smaller = isLessThanOrEqual(number2, temp);
+        counter = count+1;
+        while(smaller == false && counter < length1){
+            temp.push_back(number1[counter];
+            smaller = isLessThanOrEqual(number2, temp);
+            ++counter;
+        }
+        int val = findVal(table, temp);
+    }
+    cout<<endl;*/
+    return x;
 }
 
 // -------
