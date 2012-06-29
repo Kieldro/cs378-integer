@@ -421,8 +421,9 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 }
 
 // --------------
-// isSmaller
-//
+// isLessThanOrEqual
+// --------------
+
 // this method returns true if number1 is smaller than number2 else it returns false
 bool isLessThanOrEqual (vector < int > number1, vector < int > number2){
     int length1 = (int)number1.size();
@@ -484,6 +485,53 @@ vector < int > reverse_and_fix(vector < int > number){
     return output;
 }
 
+
+
+// --------------
+// findVal
+// --------------
+int findVal(vector < vector < int > > table, vector < int > number){
+    int out = 0;
+    bool lessThan = isLessThanOrEqual(table[0], number);
+  /*  for(int j = 0; j < (int) table[0].size(); ++j){
+        cout<<table[1][j];
+    }*/
+    cout<<endl;
+    for(int i = 0; i < 10; ++i){
+        if(lessThan == false){
+            out = i-2;
+            break;
+        }
+        lessThan = isLessThanOrEqual(table[i], number);
+        if(i == 9 && lessThan == true){
+            out = 9;
+        }
+    }
+    return out;
+}
+
+
+// ---------------
+// trimLeadingZeroes
+// ---------------
+vector < int > trimLeadingZeroes(vector < int > number){
+    vector < int > output;
+    bool foundFirst = false;
+    for(int i = 0; i < (int)number.size(); ++i){
+        if(foundFirst == false){
+            if(number[i] != 0){
+                foundFirst = true;
+                output.push_back(number[i]);
+            }
+        }
+        else{
+            output.push_back(number[i]);
+        }
+    }
+    return output;
+}
+
+
 // --------------
 // divides_digits
 // --------------
@@ -502,7 +550,7 @@ vector < int > reverse_and_fix(vector < int > number){
 template <typename II1, typename II2, typename OI>
 OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	// <your code>
-  /*  vector < int > number1;
+    vector < int > number1;
     vector < int > number2(2);
     int length1 = 0;
     int length2 = 0;
@@ -527,11 +575,12 @@ OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
         temp = reverse_and_fix(table[i]);
         table[i] = temp;
     }
-    for(int j = 0; j < (int)table[3].size(); ++j){
+   /* for(int j = 0; j < (int)table[3].size(); ++j){
         cout<<table[3][j];
-    }
+    }*/
     reverse(number1.begin(), number1.end());
     reverse(number2.begin(), number2.end());
+    number2 = trimLeadingZeroes(number2);
     int count = 0;
     int remainder = 0;
     int counter = 0;
@@ -546,13 +595,23 @@ OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
         smaller = isLessThanOrEqual(number2, temp);
         counter = count+1;
         while(smaller == false && counter < length1){
-            temp.push_back(number1[counter];
+            temp.push_back(number1[counter]);
             smaller = isLessThanOrEqual(number2, temp);
             ++counter;
         }
+       /* for(int j = 0; j < (int)temp.size(); ++j){
+            cout<<temp[j];
+        }
+        for(int k = 0; k < (int)number2.size(); ++k){
+            cout<<number2[k];
+        }*/
         int val = findVal(table, temp);
+        cout<<val<<endl;
+        output.push_back(val);
+        count = counter+1;
+       // remainder = vector_subtract(number1, table[val]);
     }
-    cout<<endl;*/
+    cout<<endl;
     return x;
 }
 
