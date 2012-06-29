@@ -425,31 +425,30 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 //
 // this method returns true if number1 is smaller than number2 else it returns false
 bool isLessThanOrEqual (vector < int > number1, vector < int > number2){
-    int length1 = (int)number1.size();
-    int length2 = (int)number2.size();
-    if(length1 > length2)
-        return false;
-    else{
-        if(length2 > length1)
-            return true;
-        else{
-                for(int i = 0; i < length1; ++i){
-                    if(number1[i] == number2[i])
-                         continue;
-                    if(number1[i] > number2[i])
-                         return false;
-                    else
-                         return true;
-                }
-        }
-    }
-    return true;
+	int length1 = (int)number1.size();
+	int length2 = (int)number2.size();
+	if(length1 > length2)
+		return false;
+	else{
+		if(length2 > length1)
+			return true;
+		else{
+			for(int i = 0; i < length1; ++i){
+				if(number1[i] == number2[i])
+					continue;
+				if(number1[i] > number2[i])
+					return false;
+				else
+					return true;
+			}
+		}
+	}
+	return true;
 }
 
 
 // -----------------
 // generateDivisionTable
-// -----------------
 vector < vector < int > > generateDivisionTable(vector < int > number){
     vector < vector < int > > output(10);
     vector < int > empty(1); 
@@ -473,7 +472,6 @@ vector < vector < int > > generateDivisionTable(vector < int > number){
 
 // --------------
 // reverse_and_fix
-// --------------
 vector < int > reverse_and_fix(vector < int > number){
     vector < int > output(number.size()-1);
     int count = 0;
@@ -558,18 +556,30 @@ OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 
 // -------
 // Integer
-template < typename T, typename C = std::vector<T> >
+template < typename T, typename C = vector<T> >
 class Integer {
 	// -----------
 	// operator ==
 	/**
-	 * <your documentation>
+	 * friend functions are allowed to look at private class variables/methods.
 	 */
 	friend bool operator == (const Integer& lhs, const Integer& rhs) {
-		// <your code>
+		if(lhs.negative xor rhs.negative)
+			return false;
 		
+		typename C::const_iterator b0 = lhs.digits.begin();
+		typename C::const_iterator b1 = rhs.digits.begin();
+		typename C::const_iterator e0 = lhs.digits.end();
+		typename C::const_iterator e1 = rhs.digits.end();
 		
-		return false;
+		for(; b0 != e0 and b1 != e1; ++b0, ++b1)
+			if(*b0 != *b1)
+				return false;
+		
+		if(b0 == e0 and b1 == e1)
+			return true;
+		else		// not equal length
+			return false;
 	}
 
 	// -----------
@@ -701,8 +711,6 @@ class Integer {
 
 	// ---
 	// pow
-	// ---
-
 	/**
 	 * power
 	 * does NOT modify the argument
@@ -722,6 +730,7 @@ class Integer {
         // -----
         // valid
         // invariant?
+        // returns true if digits is valid.
         bool valid () const {
             // <your code>
             
@@ -735,7 +744,7 @@ class Integer {
 		 * int value will be <= 2147483647 
 		 */
 		Integer (int value) {
-			if(DEBUG) cerr << "Integer(int)..." << endl;
+			//if(DEBUG) cerr << "Integer(int)!" << endl;
 			if(value < 0){
 				negative = true;
 				value *= -1;
@@ -748,45 +757,47 @@ class Integer {
 			assert(digits.size() <= 10);
 			std::reverse(digits.begin(), digits.end() );
 			
-
-			if (DEBUG){		// print contents of an array
-				cerr << "digits: ";
-				int size = digits.size();
-				for(int i = 0; i < size; ++i)
-					cerr << " " << digits[i];
-				cerr << endl;
-			}
-			if(DEBUG) cerr << "end of Integer(int)." << endl;
+			//if(DEBUG) this->print();
+			//if(DEBUG) cerr << "end of Integer(int)" << endl;
 			assert(valid() );
 		}
 
-        /**
-         * <your documentation>
-         * @throws invalid_argument if value is not a valid representation of an Integer
-         */
-        explicit Integer (const std::string& value) {
-            // <your code>
-            if (!valid())
-                throw std::invalid_argument("Integer::Integer()");}
+		/**
+		 * <your documentation>
+		 * @throws invalid_argument if value is not a valid representation of an Integer
+		 */
+		explicit Integer (const std::string& value) {
+			// <your code>
+			if (!valid())
+				throw std::invalid_argument("Integer::Integer()");
+		}
 
-        // Default copy, destructor, and copy assignment.
-        // Integer (const Integer&);
-        // ~Integer ();
-        // Integer& operator = (const Integer&);
+		// Default copy, destructor, and copy assignment.
+		// Integer (const Integer&);
+		// ~Integer ();
+		// Integer& operator = (const Integer&);
+		
+		// print contents of an array
+		void print(){
+			cerr << "digits: ";
+			int size = digits.size();
+			for(int i = 0; i < size; ++i)
+				cerr << " " << digits[i];
+			cerr << endl;
+		
+		}
+		
+		// ----------
+		// operator -
+		/**
+		 * <your documentation>
+		 */
+		Integer operator - () const {
+			// <your code>
+			return Integer(0);}
 
-        // ----------
-        // operator -
-        /**
-         * <your documentation>
-         */
-        Integer operator - () const {
-            // <your code>
-            return Integer(0);}
-
-        // -----------
-        // operator ++
-        // -----------
-
+		// -----------
+		// operator ++
         /**
          * <your documentation>
          */
@@ -804,8 +815,6 @@ class Integer {
 
         // -----------
         // operator --
-        // -----------
-
         /**
          * <your documentation>
          */
