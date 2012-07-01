@@ -2,7 +2,7 @@
 source="RunInteger.c++"
 unitFile="TestInteger.c++"
 outFile="RunInteger.out"
-unit=false
+unit=true
 
 if $unit; then
 echo COMPILING UNIT TESTS...

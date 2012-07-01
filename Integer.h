@@ -675,7 +675,7 @@ class Integer {
 			assert(lhs.digits.size() == 1);		// no leading zeroes allowed
 			return true;
 		}
-			
+		//if(DEBUG) cerr << "BOOYAKASHA!" << endl;
 		
 		if(lhs.negative xor rhs.negative)
 			return false;
@@ -851,14 +851,21 @@ class Integer {
 		C digits;
 		bool negative;
 	private:
-        // -----
-        // valid
-        // invariant?
-        // returns true if digits is valid.
-        bool valid () const {
-            // <your code>
-            
-            return true;}
+		// -----
+		// valid
+		// invariant?
+		// returns true if digits is valid.
+		bool valid () const {
+			if(digits.size() < 1) return false;
+
+			if(digits.size() > 1 and digits[0] == 0)
+				return false;
+
+			if(digits.size() == 1 and digits[0] == 0 and negative)
+				return false;
+
+			return true;
+		}
 
 	public:
 		// ------------
@@ -875,8 +882,11 @@ class Integer {
 			}else
 				negative = false;
 
-			for(int i = value%10; value != 0; value/=10, i=value%10)
-				digits.push_back(i);
+			if(value == 0)
+				digits.push_back(0);
+			else
+				for(int i = value%10; value != 0; value/=10, i=value%10)
+					digits.push_back(i);
 			
 			assert(digits.size() <= 10);
 			std::reverse(digits.begin(), digits.end() );
@@ -901,8 +911,8 @@ class Integer {
 		// ~Integer ();
 		// Integer& operator = (const Integer&);
 		
-		// print contents of an array
-		void print(){
+		// print contents of digits
+		void print() const{
 			cerr << "digits: ";
 			int size = digits.size();
 			for(int i = 0; i < size; ++i)
@@ -961,7 +971,7 @@ class Integer {
 		// -----------
 		// operator +=
 		/**
-		* <your documentation>
+		* incomplete
 		*/
 		Integer& operator += (const Integer& rhs) {
 			typename C::iterator b0 = this->digits.begin();
@@ -1017,52 +1027,52 @@ class Integer {
             // <your code>
             return *this;}
 
-        // ------------
-        // operator <<=
-        /**
-         * <your documentation>
-         */
-        Integer& operator <<= (int n) {
-            // <your code>
-            return *this;}
+		// ------------
+		// operator <<=
+		/**
+		* <your documentation>
+		*/
+		Integer& operator <<= (int n) {
+			// <your code>
+			return *this;}
 
-        // ------------
-        // operator >>=
-        /**
-         * <your documentation>
-         */
-        Integer& operator >>= (int n) {
-            // <your code>
-            return *this;}
+		// ------------
+		// operator >>=
+		/**
+		* <your documentation>
+		*/
+		Integer& operator >>= (int n) {
+			// <your code>
+			return *this;}
 
-        // ---
-        // abs
-        /**
-         * absolute value
-         * <your documentation>
-         */
-        Integer& abs () {
-            // <your code>
-            return *this;}
+		// ---
+		// abs
+		/**
+		* absolute value
+		* <your documentation>
+		*/
+		Integer& abs () {
+			negative = false;
+			
+			return *this;
+		}
+		
+		// ---
+		// pow
+		/**
+		* power
+		* <your documentation>
+		* @throws invalid_argument if (this == 0) && (e == 0)
+		* @throws invalid_argument if (e < 0)
+		*/
+		Integer& pow (int e) {
 
-        // ---
-        // pow
-        /**
-         * power
-         * <your documentation>
-         * @throws invalid_argument if (this == 0) && (e == 0)
-         * @throws invalid_argument if (e < 0)
-         */
-        Integer& pow (int e) {
-        	
-            return *this;
-        }
-    };
+			return *this;
+		}
+	};
 
 // ---
 // abs
-// ---
-
 /**
  * absolute value
  * does NOT modify the argument
@@ -1070,6 +1080,18 @@ class Integer {
  */
 template <typename T, typename C>
 Integer<T, C> abs (Integer<T, C> x) {
-	return x.abs();}
+	
+	
+	return x.abs();
+}
 
+// print contents of an array
+void print(int x[]){
+	cerr << "array: ";
+	int size = sizeof (x)/sizeof (int);
+	for(int i = 0; i < size; ++i)
+		cerr << " " << x[i];
+	cerr << endl;
+
+}
 #endif // Integer_h
