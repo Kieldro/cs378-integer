@@ -1056,7 +1056,9 @@ class Integer {
 			
 			divides_digits(b0, e0, b1, e1, x);
 			
-			return *this;}
+			//if(DEBUG) cerr << "BOOYAKASHA! " << *this << endl;
+			return *this;
+		}
 
 		// -----------
 		// operator %=
@@ -1065,8 +1067,11 @@ class Integer {
 		* @throws invalid_argument if (rhs <= 0)
 		*/
 		Integer& operator %= (const Integer& rhs) {
-			// <your code>
-			return *this;}
+			
+			
+			
+			return *this;
+		}
 
 		// ------------
 		// operator <<=
@@ -1107,7 +1112,18 @@ class Integer {
 		* @throws invalid_argument if (e < 0)
 		*/
 		Integer& pow (int e) {
+			if(this == 0 && (e == 0) )
+				throw std::invalid_argument("Integer::pow(int)");
+			
+			if(e < 0)
+				throw std::invalid_argument("Integer::pow(int)");
+			
+			Integer result = 1;
+			
+			for (int i = 0; i < e; ++i)
+				result *= *this;
 
+			*this = result;
 			return *this;
 		}
 	};

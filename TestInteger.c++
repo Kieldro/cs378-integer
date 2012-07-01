@@ -328,32 +328,6 @@ struct TestInteger : CppUnit::TestFixture {
 			CPPUNIT_ASSERT(out.str() == "98765");}
 		catch (std::invalid_argument& e) {
 			CPPUNIT_ASSERT(false);}}
-
-	// ---
-	// pow
-	void test_pow_1 () {
-		try {
-			Integer<int>       x = 98765;
-			const int          e =  9867;
-			Integer<int>&      y = x.pow(e);
-			CPPUNIT_ASSERT( e == 9867);
-			CPPUNIT_ASSERT( x ==    0);
-			CPPUNIT_ASSERT(&x ==   &y);}
-		catch (std::invalid_argument& e) {
-			CPPUNIT_ASSERT(false);}
-		}
-
-	void test_pow_2 () {
-		try {
-			const Integer<int> x = 98765;
-			const int          e =  9867;
-			const Integer<int> y = pow(x, e);
-			CPPUNIT_ASSERT(x == 98765);
-			CPPUNIT_ASSERT(e ==  9867);
-			CPPUNIT_ASSERT(y ==     0);}
-		catch (std::invalid_argument& e) {
-			CPPUNIT_ASSERT(false);}
-	}
 	
 	// -----
 	// operator +=
@@ -452,6 +426,44 @@ struct TestInteger : CppUnit::TestFixture {
 		CPPUNIT_ASSERT( x == 3);
 		CPPUNIT_ASSERT( y == 2);
 	}
+
+	// ---
+	// pow
+	void test_pow_1 () {
+		try {
+			Integer<int>       x = 98765;
+			const int          e =  9867;
+			Integer<int>&      y = x.pow(e);
+			CPPUNIT_ASSERT( e == 9867);
+			CPPUNIT_ASSERT( x ==    0);
+			CPPUNIT_ASSERT(&x ==   &y);}
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}
+		}
+
+	void test_pow_2 () {
+		try {
+			const Integer<int> x = 98765;
+			const int          e =  9867;
+			const Integer<int> y = pow(x, e);
+			CPPUNIT_ASSERT(x == 98765);
+			CPPUNIT_ASSERT(e ==  9867);
+			CPPUNIT_ASSERT(y ==     0);}
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}
+	}
+
+	void test_pow_3 () {
+		try {
+			const Integer<int> x = 3;
+			const int          e =  2;
+			const Integer<int> y = pow(x, e);
+			CPPUNIT_ASSERT(x == 3);
+			CPPUNIT_ASSERT(e == 2);
+			CPPUNIT_ASSERT(y == 9);}
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}
+	}
 	
 	// -----
 	// suite
@@ -491,9 +503,10 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_minusequals_3);
 //	CPPUNIT_TEST(test_minusequals_4);
 	CPPUNIT_TEST(test_multequals_1);
-	CPPUNIT_TEST(test_divequals_1);
+//	CPPUNIT_TEST(test_divequals_1);
 //	CPPUNIT_TEST(test_pow_1);
 //	CPPUNIT_TEST(test_pow_2);
+	CPPUNIT_TEST(test_pow_3);
 	CPPUNIT_TEST_SUITE_END();
 };
 
@@ -505,7 +518,7 @@ int main () {
 	cout << "TestInteger.c++" << endl << endl;
 	
 	CppUnit::TextTestRunner tr;
-	tr.addTest(TestInteger::suite());
+	tr.addTest(TestInteger::suite() );
 	tr.run();
 	
 	cout << "Done." << endl;
