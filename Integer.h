@@ -192,22 +192,14 @@ OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {vector < int > number1;
 	int maxLen = length1;
 	int diff = -1;
 	int count = 0;
-
+        vector < int > zeroes;
 	if(length1 > length2){
 		diff = length1 - length2;
 		while(count < diff){
-			number2.push_back(0);
+			zeroes.push_back(0);
 			++count;
 		}
-		int index1 = length1 - 1;
-		int index2 = length2 - 1;
-		int temporary = 0;
-		while(index2 >= 0){
-			temporary = number2[index2];
-			number2[index2] = number2[index1];
-			number2[index1] = temporary;
-			--index2;
-		}
+                number2.insert( number2.begin(), zeroes.begin(), zeroes.end() );
 	}
 
 	vector < int > output(maxLen);
@@ -449,31 +441,10 @@ bool isLessThanOrEqual (vector < int > number1, vector < int > number2){
 }
 
 
-// -----------------
-// generateDivisionTable
-vector < vector < int > > generateDivisionTable(vector < int > number){
-    vector < vector < int > > output(10);
-    vector < int > empty(1); 
-    empty[0] = 0;
-    output[0] = empty;
-    output[1] = number;
-    vector < int > copy;
-    int size = number.size();
-    for(int i = 0; i < size; ++i){
-        copy.push_back(number[i]);
-    }
-    for(int j = 2; j <= 9; ++j){
-        copy = vector_add(copy, number);
-        output[j] = copy;
-    }
-    for(int k = 0; k <= 9; ++k){
-        reverse(output[k].begin(), output[k].end());
-    }
-    return output;
-}
 
 // --------------
 // reverse_and_fix
+// --------------
 vector < int > reverse_and_fix(vector < int > number){
     vector < int > output(number.size()-1);
     int count = 0;
@@ -530,6 +501,78 @@ vector < int > trimLeadingZeroes(vector < int > number){
     return output;
 }
 
+// --------------
+// vector_subtract
+// --------------
+
+vector < int > vector_subtract(vector < int > number1, vector < int > number2){
+	int length1 = (int)number1.size();
+	int length2 = (int)number2.size();
+	int maxLen = length1;
+	int diff = -1;
+	int count = 0;
+        number1 = trimLeadingZeroes(number1);
+        number2 = trimLeadingZeroes(number2);
+        vector < int > zeroes;
+	if(length1 > length2){
+		diff = length1 - length2;
+		while(count < diff){
+			zeroes.push_back(0);
+			++count;
+		}
+                number2.insert( number2.begin(), zeroes.begin(), zeroes.end() );
+	}
+	vector < int > output(maxLen);
+	int lastLocation = -1;
+	int val = 0;
+	int num1 = 0;
+	int num2 = 0;
+	int temp = 0;
+
+	for(int i = 0; i < maxLen; ++i){
+		if(i == 0){
+			num1 = number1[i];
+			num2 = number2[i];
+			val = num1-num2;
+			output[i] = val;
+			lastLocation = i;
+			continue;
+		}
+		else{
+			num1 = number1[i];
+			num2 = number2[i];
+			if(num1 > num2){
+				val = num1 - num2;
+				output[i] = val;
+				if(val != 0)
+					lastLocation = i;
+			}
+			else{
+				temp = output[lastLocation];
+				temp -= 1;
+				output[lastLocation] = temp;
+				++lastLocation;
+				if(lastLocation == i){
+					num1 += 10;
+					val = num1-num2;
+					output[i] = val;
+					lastLocation = i;
+				}else{
+					while(lastLocation < i){
+						output[lastLocation] = 9;
+						++lastLocation;
+					}
+					num1+= 10;
+					val = num1-num2;
+					output[i] = val;
+					lastLocation = i;
+				}
+			}
+		}
+	}	
+	return output;
+}
+
 
 // --------------
 // divides_digits
@@ -574,9 +617,6 @@ OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
         temp = reverse_and_fix(table[i]);
         table[i] = temp;
     }
-   /* for(int j = 0; j < (int)table[3].size(); ++j){
-        cout<<table[3][j];
-    }*/
     reverse(number1.begin(), number1.end());
     reverse(number2.begin(), number2.end());
     number2 = trimLeadingZeroes(number2);
@@ -585,12 +625,20 @@ OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
     int counter = 0;
     bool smaller = false;
     vector < int > output;
+    vector < int > remainderVector;
     while(count < length1){
         vector < int > temp(1);
         if(count == 0){
             remainder = number1[0];
+            temp[0] = remainder;
         }
-        temp[0] = remainder;
+        else{
+            temp[0] = remainderVector[0];
+            for(int z = 1; z < (int)remainderVector.size(); ++z){
+                temp.push_back(remainderVector[z]);
+            }
+            temp.push_back(number1[count]);
+        }
         smaller = isLessThanOrEqual(number2, temp);
         counter = count+1;
         while(smaller == false && counter < length1){
@@ -598,19 +646,17 @@ OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
             smaller = isLessThanOrEqual(number2, temp);
             ++counter;
         }
-       /* for(int j = 0; j < (int)temp.size(); ++j){
-            cout<<temp[j];
-        }
-        for(int k = 0; k < (int)number2.size(); ++k){
-            cout<<number2[k];
-        }*/
         int val = findVal(table, temp);
-        cout<<val<<endl;
         output.push_back(val);
-        count = counter+1;
-       // remainder = vector_subtract(number1, table[val]);
+        count = counter;
+        remainderVector = vector_subtract(temp, table[val]);
+        remainderVector = trimLeadingZeroes(remainderVector);
     }
-    cout<<endl;
+    int outputLen = (int) output.size();
+    for(int j = 0; j < outputLen; ++j){
+	*x = output[j];
+	++x;
+    }	
     return x;
 }
 
