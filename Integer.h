@@ -671,7 +671,7 @@ class Integer {
 	 * 
 	 */
 	friend bool operator == (const Integer& lhs, const Integer& rhs) {
-		if(lhs.digits.front() == 0 and rhs.digits.front() == 0)
+		if(lhs.digits.front() == 0 and rhs.digits.front() == 0){
 			assert(lhs.digits.size() == 1);		// no leading zeroes allowed
 			return true;
 		}
@@ -926,54 +926,57 @@ class Integer {
 
 		// -----------
 		// operator ++
-        /**
-         * <your documentation>
-         */
-        Integer& operator ++ () {
-            *this += 1;
-            return *this;}
+		/**
+		* <your documentation>
+		*/
+		Integer& operator ++ () {
+			*this += 1;
+			return *this;}
 
-        /**
-         * <your documentation>
-         */
-        Integer operator ++ (int) {
-            Integer x = *this;
-            ++(*this);
-            return x;}
+		/**
+		* <your documentation>
+		*/
+		Integer operator ++ (int) {
+			Integer x = *this;
+			++(*this);
+			return x;}
 
-        // -----------
-        // operator --
-        /**
-         * <your documentation>
-         */
-        Integer& operator -- () {
-            *this -= 1;
-            return *this;}
+		// -----------
+		// operator --
+		/**
+		* <your documentation>
+		*/
+		Integer& operator -- () {
+			*this -= 1;
+			return *this;}
 
-        /**
-         * <your documentation>
-         */
-        Integer operator -- (int) {
-            Integer x = *this;
-            --(*this);
-            return x;}
+		/**
+		* <your documentation>
+		*/
+		Integer operator -- (int) {
+			Integer x = *this;
+			--(*this);
+			return x;}
 
-        // -----------
-        // operator +=
-        // -----------
-
-        /**
-         * <your documentation>
-         */
-        Integer& operator += (const Integer& rhs) {
-            plus_digits();
-            
-            return *this;}
+		// -----------
+		// operator +=
+		/**
+		* <your documentation>
+		*/
+		Integer& operator += (const Integer& rhs) {
+			typename C::iterator b0 = this->digits.begin();
+			typename C::iterator e0 = this->digits.end();
+			typename C::const_iterator b1 = rhs.digits.begin();
+			typename C::const_iterator e1 = rhs.digits.end();
+			typename C::iterator x = digits.begin();
+			
+			plus_digits(b0, e0, b1, e0, x);
+			
+			return *this;
+		}
 
         // -----------
         // operator -=
-        // -----------
-
         /**
          * <your documentation>
          */
