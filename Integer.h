@@ -1030,8 +1030,16 @@ class Integer {
 		* <your documentation>
 		*/
 		Integer& operator *= (const Integer& rhs) {
-			// <your code>
-			return *this;}
+			typename C::iterator b0 = this->digits.begin();
+			typename C::iterator e0 = this->digits.end();
+			typename C::const_iterator b1 = rhs.digits.begin();
+			typename C::const_iterator e1 = rhs.digits.end();
+			typename C::iterator x = this->digits.begin();
+			
+			multiplies_digits(b0, e0, b1, e1, x);
+			
+			return *this;
+		}
 
 		// -----------
 		// operator /=
@@ -1040,7 +1048,14 @@ class Integer {
 		* @throws invalid_argument if (rhs == 0)
 		*/
 		Integer& operator /= (const Integer& rhs) {
-			// <your code>
+			typename C::iterator b0 = this->digits.begin();
+			typename C::iterator e0 = this->digits.end();
+			typename C::const_iterator b1 = rhs.digits.begin();
+			typename C::const_iterator e1 = rhs.digits.end();
+			typename C::iterator x = this->digits.begin();
+			
+			divides_digits(b0, e0, b1, e1, x);
+			
 			return *this;}
 
 		// -----------

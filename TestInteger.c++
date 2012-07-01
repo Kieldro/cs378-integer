@@ -432,6 +432,28 @@ struct TestInteger : CppUnit::TestFixture {
 	}
 	
 	// -----
+	// operator *=
+	void test_multequals_1(){
+		Integer<int> x = 3;
+		Integer<int> y = 2;
+		
+		CPPUNIT_ASSERT( (x *= y) == 6);
+		CPPUNIT_ASSERT( x == 6);
+		CPPUNIT_ASSERT( y == 2);
+	}
+	
+	// -----
+	// operator /=
+	void test_divequals_1(){
+		Integer<int> x = 6;
+		Integer<int> y = 2;
+		
+		CPPUNIT_ASSERT( (x /= y) == 3);
+		CPPUNIT_ASSERT( x == 3);
+		CPPUNIT_ASSERT( y == 2);
+	}
+	
+	// -----
 	// suite
 	CPPUNIT_TEST_SUITE(TestInteger);
 	CPPUNIT_TEST(test_shift_left_digits);
@@ -468,6 +490,8 @@ struct TestInteger : CppUnit::TestFixture {
 	//CPPUNIT_TEST(test_minusequals_2);
 	CPPUNIT_TEST(test_minusequals_3);
 //	CPPUNIT_TEST(test_minusequals_4);
+	CPPUNIT_TEST(test_multequals_1);
+	CPPUNIT_TEST(test_divequals_1);
 //	CPPUNIT_TEST(test_pow_1);
 //	CPPUNIT_TEST(test_pow_2);
 	CPPUNIT_TEST_SUITE_END();
