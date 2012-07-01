@@ -263,11 +263,27 @@ struct TestInteger : CppUnit::TestFixture {
 
 	// --------
 	// negation
-	void test_negation () {
+	void test_negation_1 () {
 		try {
 			const Integer<int> x = 98765;
 			const Integer<int> y = -x;
 			CPPUNIT_ASSERT(y == -98765);}
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}}
+	
+	void test_negation_2 () {
+		try {
+			const Integer<int> x = -98765;
+			const Integer<int> y = -x;
+			CPPUNIT_ASSERT(y == 98765);}
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}}
+	
+	void test_negation_3 () {
+		try {
+			const Integer<int> x = 0;
+			const Integer<int> y = -x;
+			CPPUNIT_ASSERT(y == 0);}
 		catch (std::invalid_argument& e) {
 			CPPUNIT_ASSERT(false);}}
 
@@ -329,9 +345,12 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_less_than_5);
 	CPPUNIT_TEST(test_less_than_6);
 	CPPUNIT_TEST(test_multiplies_digits);
-/*	CPPUNIT_TEST(test_divides_digits);
+//	CPPUNIT_TEST(test_divides_digits);
+	CPPUNIT_TEST(test_negation_1);
+	CPPUNIT_TEST(test_negation_2);
+	CPPUNIT_TEST(test_negation_3);
+/*	CPPUNIT_TEST(test_abs_1);
 	CPPUNIT_TEST(test_abs_2);
-	CPPUNIT_TEST(test_negation);
 	CPPUNIT_TEST(test_output);
 	CPPUNIT_TEST(test_pow_1);
 	CPPUNIT_TEST(test_pow_2);

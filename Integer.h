@@ -668,8 +668,15 @@ class Integer {
 	// operator ==
 	/**
 	 * friend functions are allowed to look at private class variables/methods.
+	 * 
 	 */
 	friend bool operator == (const Integer& lhs, const Integer& rhs) {
+		if(lhs.digits.front() == 0 and rhs.digits.front() == 0)
+			assert(lhs.digits.size() == 1);		// no leading zeroes allowed
+			return true;
+		}
+			
+		
 		if(lhs.negative xor rhs.negative)
 			return false;
 		
@@ -750,8 +757,6 @@ class Integer {
 
     // -----------
     // operator >=
-    // -----------
-
     /**
      * <your documentation>
      */
@@ -760,8 +765,6 @@ class Integer {
 
     // ----------
     // operator +
-    // ----------
-
     /**
      * <your documentation>
      */
@@ -770,8 +773,6 @@ class Integer {
 
     // ----------
     // operator -
-    // ----------
-
     /**
      * <your documentation>
      */
@@ -780,8 +781,6 @@ class Integer {
 
     // ----------
     // operator *
-    // ----------
-
     /**
      * <your documentation>
      */
@@ -790,8 +789,6 @@ class Integer {
 
     // ----------
     // operator /
-    // ----------
-
     /**
      * <your documentation>
      * @throws invalid_argument if (rhs == 0)
@@ -801,8 +798,6 @@ class Integer {
 
     // ----------
     // operator %
-    // ----------
-
     /**
      * <your documentation>
      * @throws invalid_argument if (rhs <= 0)
@@ -812,8 +807,6 @@ class Integer {
 
     // -----------
     // operator <<
-    // -----------
-
     /**
      * <your documentation>
      */
@@ -921,11 +914,15 @@ class Integer {
 		// ----------
 		// operator -
 		/**
-		 * <your documentation>
+		 * negation
 		 */
 		Integer operator - () const {
-			// <your code>
-			return Integer(0);}
+			Integer x = *this;
+			if(x != 0)
+				x.negative = !x.negative;
+			
+			return x;
+		}
 
 		// -----------
 		// operator ++
@@ -969,7 +966,8 @@ class Integer {
          * <your documentation>
          */
         Integer& operator += (const Integer& rhs) {
-            // <your code>
+            plus_digits();
+            
             return *this;}
 
         // -----------
