@@ -1038,6 +1038,9 @@ class Integer {
 			
 			multiplies_digits(b0, e0, b1, e1, x);
 			
+			if (rhs.negative xor this->negative)
+				negative = true;
+			
 			return *this;
 		}
 
@@ -1055,6 +1058,9 @@ class Integer {
 			typename C::iterator x = this->digits.begin();
 			
 			divides_digits(b0, e0, b1, e1, x);
+			
+			if (rhs.negative xor this->negative)
+				negative = true;
 			
 			//if(DEBUG) cerr << "BOOYAKASHA! " << *this << endl;
 			return *this;
