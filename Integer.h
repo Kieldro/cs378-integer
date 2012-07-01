@@ -81,6 +81,7 @@ OI shift_right_digits (II b, II e, int n, OI x) {
  * @return   an iterator to the end       of an output sequence (exclusive)
  * the sequences are of decimal digits
  * output the sum of the two input sequences into the output sequence
+ * first number must be >= in length than second?
  * (s1 + s2) => x
  */
 template <typename II1, typename II2, typename OI>
@@ -827,9 +828,14 @@ class Integer {
 	 * <your documentation>
 	 */
 	friend std::ostream& operator << (std::ostream& lhs, const Integer& rhs) {
-		/*for(C::iterator it = rhs.digits.begin(); it < rhs.digits.end(); ++it)
-			lhs << *it;
-*/
+		typename C::const_iterator b = rhs.digits.begin();
+		typename C::const_iterator e = rhs.digits.end();
+		
+		if(rhs.negative)
+			lhs << '-';
+		for(; b != e; ++b)
+			lhs << *b;
+
 		return lhs;
 	}
 
@@ -853,7 +859,7 @@ class Integer {
 	private:
 		// -----
 		// valid
-		// invariant?
+		// invariant of the constructed object
 		// returns true if digits is valid.
 		bool valid () const {
 			if(digits.size() < 1) return false;
@@ -864,6 +870,11 @@ class Integer {
 			if(digits.size() == 1 and digits[0] == 0 and negative)
 				return false;
 
+			for(int i = 0; (unsigned)i < digits.size(); ++i)
+				if(digits[i] > 9 or digits[i] < 0)
+					return false;
+			
+			
 			return true;
 		}
 
@@ -875,12 +886,11 @@ class Integer {
 		 * int value will be <= 2147483647 
 		 */
 		Integer (int value) {
-			//if(DEBUG) cerr << "Integer(int)!" << endl;
+			negative = false;
 			if(value < 0){
 				negative = true;
 				value *= -1;
-			}else
-				negative = false;
+			}
 
 			if(value == 0)
 				digits.push_back(0);
@@ -890,9 +900,6 @@ class Integer {
 			
 			assert(digits.size() <= 10);
 			std::reverse(digits.begin(), digits.end() );
-			
-			//if(DEBUG) this->print();
-			//if(DEBUG) cerr << "end of Integer(int)" << endl;
 			assert(valid() );
 		}
 
@@ -901,7 +908,18 @@ class Integer {
 		 * @throws invalid_argument if value is not a valid representation of an Integer
 		 */
 		explicit Integer (const std::string& value) {
-			// <your code>
+			int i = 0;
+			negative = false;
+			if(value[0] == '-'){
+				negative = true;
+				++i;
+			}
+			
+			
+			for(; unsigned(i) < value.length(); ++i)
+				digits.push_back(value[i] - '0');
+			//if(DEBUG) cerr << "BOOYAKASHA!" << endl;
+			
 			if (!valid())
 				throw std::invalid_argument("Integer::Integer()");
 		}
@@ -924,7 +942,7 @@ class Integer {
 		// ----------
 		// operator -
 		/**
-		 * negation
+		 * negation does no modify the arguement
 		 */
 		Integer operator - () const {
 			Integer x = *this;
@@ -941,7 +959,8 @@ class Integer {
 		*/
 		Integer& operator ++ () {
 			*this += 1;
-			return *this;}
+			return *this;
+		}
 
 		/**
 		* <your documentation>
@@ -949,7 +968,8 @@ class Integer {
 		Integer operator ++ (int) {
 			Integer x = *this;
 			++(*this);
-			return x;}
+			return x;
+		}
 
 		// -----------
 		// operator --
@@ -958,7 +978,8 @@ class Integer {
 		*/
 		Integer& operator -- () {
 			*this -= 1;
-			return *this;}
+			return *this;
+		}
 
 		/**
 		* <your documentation>
@@ -966,7 +987,8 @@ class Integer {
 		Integer operator -- (int) {
 			Integer x = *this;
 			--(*this);
-			return x;}
+			return x;
+		}
 
 		// -----------
 		// operator +=
@@ -978,54 +1000,58 @@ class Integer {
 			typename C::iterator e0 = this->digits.end();
 			typename C::const_iterator b1 = rhs.digits.begin();
 			typename C::const_iterator e1 = rhs.digits.end();
-			typename C::iterator x = digits.begin();
+			typename C::iterator x = this->digits.begin();
 			
-			plus_digits(b0, e0, b1, e0, x);
+			plus_digits(b0, e0, b1, e1, x);
 			
 			return *this;
 		}
 
-        // -----------
-        // operator -=
-        /**
-         * <your documentation>
-         */
-        Integer& operator -= (const Integer& rhs) {
-            // <your code>
-            return *this;}
+		// -----------
+		// operator -=
+		/**
+		* <your documentation>
+		*/
+		Integer& operator -= (const Integer& rhs) {
+			typename C::iterator b0 = this->digits.begin();
+			typename C::iterator e0 = this->digits.end();
+			typename C::const_iterator b1 = rhs.digits.begin();
+			typename C::const_iterator e1 = rhs.digits.end();
+			typename C::iterator x = this->digits.begin();
+			
+			minus_digits(b0, e0, b1, e1, x);
+			
+			return *this;
+		}
 
-        // -----------
-        // operator *=
-        // -----------
+		// -----------
+		// operator *=
+		/**
+		* <your documentation>
+		*/
+		Integer& operator *= (const Integer& rhs) {
+			// <your code>
+			return *this;}
 
-        /**
-         * <your documentation>
-         */
-        Integer& operator *= (const Integer& rhs) {
-            // <your code>
-            return *this;}
+		// -----------
+		// operator /=
+		/**
+		* <your documentation>
+		* @throws invalid_argument if (rhs == 0)
+		*/
+		Integer& operator /= (const Integer& rhs) {
+			// <your code>
+			return *this;}
 
-        // -----------
-        // operator /=
-        // -----------
-
-        /**
-         * <your documentation>
-         * @throws invalid_argument if (rhs == 0)
-         */
-        Integer& operator /= (const Integer& rhs) {
-            // <your code>
-            return *this;}
-
-        // -----------
-        // operator %=
-        /**
-         * <your documentation>
-         * @throws invalid_argument if (rhs <= 0)
-         */
-        Integer& operator %= (const Integer& rhs) {
-            // <your code>
-            return *this;}
+		// -----------
+		// operator %=
+		/**
+		* <your documentation>
+		* @throws invalid_argument if (rhs <= 0)
+		*/
+		Integer& operator %= (const Integer& rhs) {
+			// <your code>
+			return *this;}
 
 		// ------------
 		// operator <<=
@@ -1083,15 +1109,5 @@ Integer<T, C> abs (Integer<T, C> x) {
 	
 	
 	return x.abs();
-}
-
-// print contents of an array
-void print(int x[]){
-	cerr << "array: ";
-	int size = sizeof (x)/sizeof (int);
-	for(int i = 0; i < size; ++i)
-		cerr << " " << x[i];
-	cerr << endl;
-
 }
 #endif // Integer_h

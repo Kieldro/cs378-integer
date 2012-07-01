@@ -70,21 +70,52 @@ struct TestInteger : CppUnit::TestFixture {
 
 	// -----------
 	// plus_digits
-	void test_plus_digits () {
+	void test_plus_digits_1 () {
 		const int a[] = {2, 3, 4};
 		const int b[] = {5, 6, 7};
 		const int c[] = {8, 0, 1};
 		int x[10];
-		const int* p = plus_digits(a, a + 3, b, b + 3, x);
+		int aSize = sizeof a/sizeof a[0];
+		int bSize = sizeof b/sizeof b[0];
+		int cSize = sizeof c/sizeof c[0];
+		const int* p = plus_digits(a, a + aSize, b, b + bSize, x);
+		CPPUNIT_ASSERT(p - x == cSize);
+		CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c) );
+	}
+	
+	void test_plus_digits_2 () {
+		const int a[] = {7, 5, 8};
+		const int b[] = {3, 1};
+		const int c[] = {7, 8, 9};
+		int x[10];
+		int aSize = sizeof a/sizeof a[0];
+		int bSize = sizeof b/sizeof b[0];
+		int cSize = sizeof c/sizeof c[0];
+		const int* p = plus_digits(a, a + aSize, b, b + bSize, x);
+		
+		CPPUNIT_ASSERT(p - x == cSize);
+		CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c) );
+	}
+	
+	void test_plus_digits_3 () {
+		const int a[] = {7, 5};
+		const int b[] = {2, 1, 3, 7};
+		const int c[] = {2, 2, 1, 2};
+		int x[10];
+		int aSize = sizeof a/sizeof a[0];
+		int bSize = sizeof b/sizeof b[0];
+		int cSize = sizeof c/sizeof c[0];
+		const int* p = plus_digits(a, a + aSize, b, b + bSize, x);
 
-		if (!DEBUG){		// print contents of an array
-			cerr << "x: ";
-			int size = sizeof(x)/sizeof(*x);
+		if (DEBUG){
+			cerr << "plusdigits: x";
+			int size = p-x;
 			for(int i = 0; i < size; ++i)
 				cerr << " " << x[i];
 			cerr << endl;
 		}
-		CPPUNIT_ASSERT(p - x == 3);
+		
+		CPPUNIT_ASSERT(p - x == cSize);
 		CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c) );
 	}
 	
@@ -140,7 +171,9 @@ struct TestInteger : CppUnit::TestFixture {
 
 	void test_constructor_3 () {
 		try {
-			const Integer<int> x("2");}
+			const Integer<int> x("2");
+			CPPUNIT_ASSERT(x == 2);
+		}
 		catch (std::invalid_argument& e) {
 			CPPUNIT_ASSERT(false);}
 	}
@@ -307,7 +340,8 @@ struct TestInteger : CppUnit::TestFixture {
 			CPPUNIT_ASSERT( x ==    0);
 			CPPUNIT_ASSERT(&x ==   &y);}
 		catch (std::invalid_argument& e) {
-			CPPUNIT_ASSERT(false);}}
+			CPPUNIT_ASSERT(false);}
+		}
 
 	void test_pow_2 () {
 		try {
@@ -320,20 +354,99 @@ struct TestInteger : CppUnit::TestFixture {
 		catch (std::invalid_argument& e) {
 			CPPUNIT_ASSERT(false);}
 	}
-
+	
+	// -----
+	// operator +=
+	void test_plusequals_1(){
+		Integer<int> x = 2;
+		Integer<int> y = 3;
+		
+		CPPUNIT_ASSERT( (x += y) == 5);
+		CPPUNIT_ASSERT( x == 5);
+		CPPUNIT_ASSERT( y == 3);
+	}
+	
+	void test_plusequals_2(){
+		Integer<int> x = 0;
+		Integer<int> y = 0;
+		
+		CPPUNIT_ASSERT( (x += y) == 0);
+		CPPUNIT_ASSERT( x == 0);
+		CPPUNIT_ASSERT( y == 0);
+	}
+	
+	void test_plusequals_3(){
+		Integer<int> x = 11;
+		Integer<int> y = 537;
+		
+		CPPUNIT_ASSERT( (x += y) == 548);
+		CPPUNIT_ASSERT( x == 548);
+		CPPUNIT_ASSERT( y == 537);
+	}
+	
+	void test_plusequals_4(){
+		Integer<int> x = 537;
+		Integer<int> y = 11;
+		
+		CPPUNIT_ASSERT( (x += y) == 548);
+		CPPUNIT_ASSERT( x == 548);
+		CPPUNIT_ASSERT( y == 11);
+	}
+	
+	// -----
+	// operator -=
+	void test_minusequals_1(){
+		Integer<int> x = 3;
+		Integer<int> y = 2;
+		
+		CPPUNIT_ASSERT( (x -= y) == 1);
+		CPPUNIT_ASSERT( x == 1);
+		CPPUNIT_ASSERT( y == 2);
+	}
+	
+	void test_minusequals_2(){
+		Integer<int> x = 5;
+		Integer<int> y = 7;
+		
+		CPPUNIT_ASSERT( (x -= y) == -2);
+		CPPUNIT_ASSERT( x == -2);
+		CPPUNIT_ASSERT( y == 7);
+	}
+	
+	void test_minusequals_3(){
+		Integer<int> x = 23;
+		Integer<int> y = 11;
+		
+		CPPUNIT_ASSERT( (x -= y) == 12);
+		CPPUNIT_ASSERT( x == 12);
+		CPPUNIT_ASSERT( y == 11);
+	}
+	
+	void test_minusequals_4(){
+		Integer<int> x = 3;
+		Integer<int> y = 11;
+		
+		CPPUNIT_ASSERT( (x -= y) == -7);
+		CPPUNIT_ASSERT( x == -7);
+		CPPUNIT_ASSERT( y == 11);
+	}
+	
 	// -----
 	// suite
 	CPPUNIT_TEST_SUITE(TestInteger);
 	CPPUNIT_TEST(test_shift_left_digits);
 	CPPUNIT_TEST(test_shift_right_digits);
-	CPPUNIT_TEST(test_plus_digits);
+	CPPUNIT_TEST(test_plus_digits_1);
+	CPPUNIT_TEST(test_plus_digits_2);
+	//CPPUNIT_TEST(test_plus_digits_3);
 	CPPUNIT_TEST(test_minus_digits);
 	CPPUNIT_TEST(test_multiplies_digits);
 	CPPUNIT_TEST(test_divides_digits);
+	
 	CPPUNIT_TEST(test_constructor_1);
 	CPPUNIT_TEST(test_constructor_2);
-//	CPPUNIT_TEST(test_constructor_3);
-//	CPPUNIT_TEST(test_constructor_4);
+	CPPUNIT_TEST(test_constructor_3);
+	CPPUNIT_TEST(test_constructor_4);
 	CPPUNIT_TEST(test_constructor_5);
 	CPPUNIT_TEST(test_less_than_1);
 	CPPUNIT_TEST(test_less_than_2);
@@ -341,17 +454,24 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_less_than_4);
 	CPPUNIT_TEST(test_less_than_5);
 	CPPUNIT_TEST(test_less_than_6);
-//	CPPUNIT_TEST(test_multiplies_digits);
-	CPPUNIT_TEST(test_divides_digits);
 	CPPUNIT_TEST(test_negation_1);
 	CPPUNIT_TEST(test_negation_2);
 	CPPUNIT_TEST(test_negation_3);
 	CPPUNIT_TEST(test_abs_1);
 	CPPUNIT_TEST(test_abs_2);
-//	CPPUNIT_TEST(test_output);
+	CPPUNIT_TEST(test_output);
+	CPPUNIT_TEST(test_plusequals_1);
+	CPPUNIT_TEST(test_plusequals_2);
+//	CPPUNIT_TEST(test_plusequals_3);
+	CPPUNIT_TEST(test_plusequals_4);
+	CPPUNIT_TEST(test_minusequals_1);
+	//CPPUNIT_TEST(test_minusequals_2);
+	CPPUNIT_TEST(test_minusequals_3);
+//	CPPUNIT_TEST(test_minusequals_4);
 //	CPPUNIT_TEST(test_pow_1);
 //	CPPUNIT_TEST(test_pow_2);
-	CPPUNIT_TEST_SUITE_END();};
+	CPPUNIT_TEST_SUITE_END();
+};
 
 // ----
 // main
