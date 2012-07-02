@@ -380,8 +380,6 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
     vector < int > zeroes;
     vector < int > empty(1);
     empty[0] = 0;
-    int lengthOfTemp = -1;
-    int lengthOfTableEntry = -1;
     vector < int > copy;
     while (counter < length2){
         val = number2[counter];
