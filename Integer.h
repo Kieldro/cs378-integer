@@ -341,8 +341,6 @@ vector < vector < int > > generateTable(vector < int > number){
 
 // -----------------
 // multiplies_digits
-// -----------------
-
 /**
  * @param b  an iterator to the beginning of an input  sequence (inclusive)
  * @param e  an iterator to the end       of an input  sequence (exclusive)
@@ -682,7 +680,7 @@ class Integer {
 	// -----------
 	// operator !=
 	/**
-	 * <your documentation>
+	 * returns true is both Integers are not equal, false otherwise.
 	 */
 	friend bool operator != (const Integer& lhs, const Integer& rhs) {
 		return !(lhs == rhs);}
@@ -690,7 +688,7 @@ class Integer {
 	// ----------
 	// operator <
 	/**
-	 * <your documentation>
+	 * returns true if lhs is less than rhs.
 	 */
 	friend bool operator < (const Integer& lhs, const Integer& rhs) {
 		if (lhs.negative and !rhs.negative)
@@ -724,7 +722,7 @@ class Integer {
 	// -----------
 	// operator <=
 	/**
-	 * <your documentation>
+	 * returns true if lhs is less than or equal to rhs.
 	 */
 	friend bool operator <= (const Integer& lhs, const Integer& rhs) {
 		return !(rhs < lhs);}
@@ -734,7 +732,7 @@ class Integer {
     // ----------
 
     /**
-     * <your documentation>
+     * returns true if lhs is greater than rhs.
      */
     friend bool operator > (const Integer& lhs, const Integer& rhs) {
         return (rhs < lhs);}
@@ -742,7 +740,7 @@ class Integer {
     // -----------
     // operator >=
     /**
-     * <your documentation>
+     * returns true if lhs is greater than or equal to rhs.
      */
     friend bool operator >= (const Integer& lhs, const Integer& rhs) {
         return !(lhs < rhs);}
@@ -750,7 +748,7 @@ class Integer {
     // ----------
     // operator +
     /**
-     * <your documentation>
+     * returns an Integer equal to lhs + rhs.
      */
     friend Integer operator + (Integer lhs, const Integer& rhs) {
         return lhs += rhs;}
@@ -758,7 +756,7 @@ class Integer {
     // ----------
     // operator -
     /**
-     * <your documentation>
+     * returns an Integer equal to lhs - rhs.
      */
     friend Integer operator - (Integer lhs, const Integer& rhs) {
         return lhs -= rhs;}
@@ -766,7 +764,7 @@ class Integer {
     // ----------
     // operator *
     /**
-     * <your documentation>
+     * returns an Integer equal to lhs * rhs.
      */
     friend Integer operator * (Integer lhs, const Integer& rhs) {
         return lhs *= rhs;}
@@ -774,7 +772,7 @@ class Integer {
     // ----------
     // operator /
     /**
-     * <your documentation>
+     * returns an Integer equal to lhs / rhs.
      * @throws invalid_argument if (rhs == 0)
      */
     friend Integer operator / (Integer lhs, const Integer& rhs) {
@@ -783,7 +781,7 @@ class Integer {
     // ----------
     // operator %
     /**
-     * <your documentation>
+     * returns an Integer equal to lhs % rhs.
      * @throws invalid_argument if (rhs <= 0)
      */
     friend Integer operator % (Integer lhs, const Integer& rhs) {
@@ -792,7 +790,7 @@ class Integer {
     // -----------
     // operator <<
     /**
-     * <your documentation>
+     * returns an Integer equal to lhs digit-shifted right by rhs.
      */
     friend Integer operator << (Integer lhs, int rhs) {
         return lhs <<= rhs;}
@@ -800,7 +798,7 @@ class Integer {
 	// -----------
 	// operator >>
 	/**
-	 * <your documentation>
+	 * returns an Integer equal to lhs digit-shifted left by rhs.
 	 */
 	friend Integer operator >> (Integer lhs, int rhs) {
 		return lhs >>= rhs;}
@@ -808,7 +806,7 @@ class Integer {
 	// -----------
 	// operator <<
 	/**
-	 * <your documentation>
+	 * Outputs the value of rhs to the ostream object.
 	 */
 	friend std::ostream& operator << (std::ostream& lhs, const Integer& rhs) {
 		typename C::const_iterator b = rhs.digits.begin();
@@ -827,7 +825,7 @@ class Integer {
 	/**
 	 * power
 	 * does NOT modify the argument
-	 * <your documentation>
+	 * returns an Integer equal to x raised to the power e.
 	 * @throws invalid_argument if (x == 0) && (e == 0)
 	 * @throws invalid_argument if (e < 0)
 	 */
@@ -886,7 +884,7 @@ class Integer {
 		}
 
 		/**
-		 * <your documentation>
+		 * Constuctor taking a string arguement.
 		 * @throws invalid_argument if value is not a valid representation of an Integer
 		 */
 		explicit Integer (const std::string& value) {
@@ -939,7 +937,7 @@ class Integer {
 		// -----------
 		// operator ++
 		/**
-		* <your documentation>
+		* preincrement the operand
 		*/
 		Integer& operator ++ () {
 			*this += 1;
@@ -947,7 +945,7 @@ class Integer {
 		}
 
 		/**
-		* <your documentation>
+		* postincrement the operand
 		*/
 		Integer operator ++ (int) {
 			Integer x = *this;
@@ -958,7 +956,7 @@ class Integer {
 		// -----------
 		// operator --
 		/**
-		* <your documentation>
+		* predecrement the operand
 		*/
 		Integer& operator -- () {
 			*this -= 1;
@@ -966,7 +964,7 @@ class Integer {
 		}
 
 		/**
-		* <your documentation>
+		* postdecrement the operand
 		*/
 		Integer operator -- (int) {
 			Integer x = *this;

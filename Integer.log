@@ -1,0 +1,210 @@
+commit 71d2651342a82caafe48a0bb965b130d5ef48c41
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jul 2 12:52:57 2012 -0500
+
+    error in muldigits test 2.
+
+commit 014024b95dead35e9404ce0b600daaa6560601e6
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jul 2 01:48:43 2012 -0500
+
+    unit tests work at home.
+
+commit 0b5cbcf57a218981dde5dce17d8a970f1e03425f
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Sun Jul 1 18:03:11 2012 -0500
+
+    added a negativ ecase.
+
+commit d23447e314f49e0046b295cc725fd69e892ca3e6
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Sun Jul 1 17:58:43 2012 -0500
+
+    plus_digits may not like it when the second number has more digits than the first.
+
+commit 32ba327ca9689c08f4468c61a7b4b6bc9bb45011
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Sun Jul 1 17:20:06 2012 -0500
+
+    some simple operator cases implemented.
+
+commit aaf583f2887e2030e68d21c650c3f02ca3cd4745
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Sun Jul 1 16:58:37 2012 -0500
+
+    Integer(std::string) constructor passes.
+
+commit 43837b940fada7b3d39951338c98c749593a76db
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Sun Jul 1 14:22:12 2012 -0500
+
+    abs() done.
+
+commit 8c43942b787a3511b2edb5476190cd923d0c4cd4
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Sun Jul 1 01:38:01 2012 -0500
+
+    working on += op.
+
+commit 69c1294c3b66e14905b33b501b5ac1c16e131647
+Merge: a88e47c e813700
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Sat Jun 30 19:48:36 2012 -0500
+
+    fixed merge conflict
+
+commit a88e47c0801a33dd47b5c145e7f8a3d39441f2f3
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Sat Jun 30 19:47:23 2012 -0500
+
+    Integer.h with workind divides_digits
+
+commit e81370055c8f32721b4eb3eb390114d62e9d20c5
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Jun 29 12:55:49 2012 -0500
+
+    stopping point.
+
+commit 7703486a8b1733887d3bfff8529b7297862d09cf
+Merge: 61a5eec 809a87d
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Fri Jun 29 12:26:09 2012 -0500
+
+    Merge branch 'master' of github.com:Kieldro/cs378-integer
+    
+    Conflicts:
+    	TestInteger.c++
+
+commit 61a5eecf7586c5aab44f9ef15b906915cd76b41e
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Fri Jun 29 12:23:48 2012 -0500
+
+    TestInteger.c++
+
+commit b2b48997c8fd79b16b145d4a9caf1f6430742753
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Fri Jun 29 12:23:10 2012 -0500
+
+    Integer.h updates
+
+commit 809a87d4af6e1a2ad22514430b47a492d78897d3
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Jun 29 12:18:35 2012 -0500
+
+    < operator complete.
+
+commit 923e9121a014d5a5b5f9672db074fef4dd6b0999
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Thu Jun 28 23:13:31 2012 -0500
+
+    operator == seems to work. plus_digits() is failing unit test.
+
+commit 1d6a32ddd93ad3edf76477eddf43b75ab62d468d
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Thu Jun 28 19:23:32 2012 -0500
+
+    everything up to multiplies digits works.  divids digits in progress but commented out
+
+commit 5f4ee8574bf86cd27a6bab4d18f50514dcd6e1c0
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Thu Jun 28 17:46:19 2012 -0500
+
+    Integer.h with working multipliy digits
+
+commit ea81446c44f8fab690b2ef2b27051d9e481a8879
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Mon Jun 25 22:57:33 2012 -0500
+
+    multiply_digits still broken but a bit better
+
+commit 51ee9c65d65649da427895180acbc02cb7a28f7c
+Merge: cdde3a3 a307580
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Mon Jun 25 22:35:51 2012 -0500
+
+    integer.h
+
+commit cdde3a3307101394691d5fabf8a04b38a3e6eec0
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Mon Jun 25 22:30:28 2012 -0500
+
+    Integer.h merge
+
+commit a307580c0364040cf627d7624bdd1d8125b6412e
+Author: ryan122988 <rk122988@utexas.edu>
+Date:   Mon Jun 25 22:23:34 2012 -0500
+
+    possibly fixed problems with multiply_digits
+
+commit 3d01d98890e3ef15bea169549df36a52bd56a1c2
+Author: ryan122988 <rk122988@utexas.edu>
+Date:   Mon Jun 25 22:19:11 2012 -0500
+
+    integer.h multipyl_digits possibly still broken
+
+commit 66eb3ff1d67abb69c9ff3452c2914b90b3cf4bf5
+Merge: de76722 c501a80
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jun 25 19:47:18 2012 -0500
+
+    Merge branch 'master' of github.com:Kieldro/cs378-integer
+
+commit de76722836bb44a882602a39a93d9156e4ddd1dd
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jun 25 19:47:13 2012 -0500
+
+    implementing << operator.
+
+commit c501a8043928d6f9994ab8ea8c87ce080f9e37b2
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Mon Jun 25 19:46:17 2012 -0500
+
+    multiplies_digits is broken
+
+commit d4d381e55ee3fe6dd3b817431c9e8bbbafd5307c
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jun 25 19:13:17 2012 -0500
+
+    Added Ryans code for add and subtract.
+
+commit 73815ed23fd3c2676d2bbad3ada1af582315cc5f
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jun 25 18:58:00 2012 -0500
+
+    Integer(int) constructor completed.
+
+commit f02d3a6fa9f5bd3cb4bba16de2121e7319c51d3e
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jun 25 16:40:24 2012 -0500
+
+    shift right implemented in O(2n) with input iterator operations only.
+
+commit 738a554b07ae92a17b70503749c3caaea0f43fc8
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jun 25 14:33:44 2012 -0500
+
+    updated readme.
+
+commit 334c44fd6dd52f6d9f7a1c50390e17fa38af6905
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Jun 22 16:17:03 2012 -0500
+
+    plus_digits is failing. Cannot find the end of x.
+
+commit 7025ca416e9fafda3e51509f0c83337553b91248
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Jun 22 14:52:00 2012 -0500
+
+    Passed test 1.
+
+commit 1bf164a26789c443f6ce524fa81ce3fa47e91dd9
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Jun 22 14:09:20 2012 -0500
+
+    fixed file names in build file.
+
+commit 1a7983f5007717a308df067d68f55825c2a5a74e
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Fri Jun 22 13:55:34 2012 -0500
+
+    Added initial files.
