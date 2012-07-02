@@ -380,9 +380,17 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
     output[0] = 0;
     int count = 0;
     vector < int > zeroes;
+    vector < int > empty(1);
+    empty[0] = 0;
+    int lengthOfTemp = -1;
+    int lengthOfTableEntry = -1;
+    vector < int > copy;
     while (counter < length2){
         val = number2[counter];
-        temp = table[val];
+        if(val != 0)
+            temp = table[val];
+        else
+            temp = empty;
         if(counter != 0){
        		while(count < counter){
                         zeroes.push_back(0);
@@ -390,6 +398,21 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
        		 }
 	         temp.insert( temp.begin(), zeroes.begin(), zeroes.end() );
 	}
+        if(counter == (length2-1)){
+            if((int)output.size() < 3){
+                 if((int)output.size() == 1){
+                     if(output[0] == 0){
+                         output = temp;
+                         break;}
+                 }
+                 else{
+                     if(output[0] == 0 && output[1] == 0){
+                        output = temp;
+                        break;
+                     }
+                 }
+            }
+        }
         if(counter == 0){
             output = temp;
         }
@@ -397,6 +420,7 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
             output = vector_add(output, temp);
         }
         ++counter;
+        temp = empty;
     }
     
     int outputLen = (int) output.size();
