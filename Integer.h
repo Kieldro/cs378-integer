@@ -86,7 +86,7 @@ OI shift_right_digits (II b, II e, int n, OI x) {
  */
 template <typename II1, typename II2, typename OI>
 OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-	//if(DEBUG) cerr << "plus_digits()..." << endl;
+	// fills vectors with array of digits in reverse
 	vector < int > number1;
 	vector < int > number2;
 	int length1 = 0;
@@ -96,18 +96,16 @@ OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 		number1.push_back(*b1);
 		++length1;
 	}
-	reverse(number1.begin(), number1.end());
+	reverse(number1.begin(), number1.end() );
 	//can readjust to remove need for reverse
 	for(;b2 != e2; ++b2){
 		number2.push_back(*b2);
 		++length2;
 	}
-	reverse(number2.begin(), number2.end());
-	int maxLen = -1;
-	if(length1 >= length2)
-		maxLen = length1;
-	else
-		maxLen = length2;
+	reverse(number2.begin(), number2.end() );
+	
+	// numbers are now reveresed in vectors
+	int maxLen = std::max(length1, length2);
 	
 	vector < int > output(maxLen);
 	int carry = 0;
@@ -124,8 +122,7 @@ OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 				output[i] = temp;
 				carry = 0;
 			}
-		}
-		if(i < length1 && i >= length2){
+		}else if(i < length1 && i >= length2){
 			temp = number1[i] + carry;
 			if(temp > 9){
 				carry = 1;
@@ -149,15 +146,14 @@ OI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 		}
 
 	}
+	
 	if(carry == 1){
 		output.push_back(1);
 		++maxLen;
 	}
 
-	for(int j = maxLen-1; j >= 0; --j){
+	for(int j = maxLen-1; j >= 0; --j, ++x)
 		*x = output[j];
-		++x;
-	}
 	
 	return x;
 }
@@ -253,7 +249,6 @@ OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {vector < int > number1;
 	}
 	
 	for(int j = 0; j < maxLen; ++j){
-		cout<<output[j];
 		*x = output[j];
 		++x;
 	}
@@ -264,8 +259,6 @@ OI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {vector < int > number1;
 
 // -----------------
 // vector_add
-// -----------------
-
 vector < int > vector_add(vector < int > number1, vector < int > number2){
 	int length1 = (int) number1.size();
         int length2 = (int) number2.size();
@@ -416,8 +409,6 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 
 // --------------
 // isLessThanOrEqual
-// --------------
-
 // this method returns true if number1 is smaller than number2 else it returns false
 bool isLessThanOrEqual (vector < int > number1, vector < int > number2){
 	int length1 = (int)number1.size();
@@ -445,7 +436,6 @@ bool isLessThanOrEqual (vector < int > number1, vector < int > number2){
 
 // --------------
 // reverse_and_fix
-// --------------
 vector < int > reverse_and_fix(vector < int > number){
     vector < int > output(number.size()-1);
     int count = 0;
@@ -460,14 +450,12 @@ vector < int > reverse_and_fix(vector < int > number){
 
 // --------------
 // findVal
-// --------------
 int findVal(vector < vector < int > > table, vector < int > number){
     int out = 0;
     bool lessThan = isLessThanOrEqual(table[0], number);
   /*  for(int j = 0; j < (int) table[0].size(); ++j){
         cout<<table[1][j];
     }*/
-    cout<<endl;
     for(int i = 0; i < 10; ++i){
         if(lessThan == false){
             out = i-2;
@@ -484,7 +472,6 @@ int findVal(vector < vector < int > > table, vector < int > number){
 
 // ---------------
 // trimLeadingZeroes
-// ---------------
 vector < int > trimLeadingZeroes(vector < int > number){
     vector < int > output;
     bool foundFirst = false;
@@ -504,8 +491,6 @@ vector < int > trimLeadingZeroes(vector < int > number){
 
 // --------------
 // vector_subtract
-// --------------
-
 vector < int > vector_subtract(vector < int > number1, vector < int > number2){
 	int length1 = (int)number1.size();
 	int length2 = (int)number2.size();
@@ -521,7 +506,7 @@ vector < int > vector_subtract(vector < int > number1, vector < int > number2){
 			zeroes.push_back(0);
 			++count;
 		}
-                number2.insert( number2.begin(), zeroes.begin(), zeroes.end() );
+        number2.insert( number2.begin(), zeroes.begin(), zeroes.end() );
 	}
 	vector < int > output(maxLen);
 	int lastLocation = -1;
@@ -577,8 +562,6 @@ vector < int > vector_subtract(vector < int > number1, vector < int > number2){
 
 // --------------
 // divides_digits
-// --------------
-
 /**
  * @param b  an iterator to the beginning of an input  sequence (inclusive)
  * @param e  an iterator to the end       of an input  sequence (exclusive)
@@ -593,21 +576,21 @@ vector < int > vector_subtract(vector < int > number1, vector < int > number2){
 template <typename II1, typename II2, typename OI>
 OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
 	// <your code>
-    vector < int > number1;
-    vector < int > number2(2);
-    int length1 = 0;
-    int length2 = 0;
-    for(;b1 != e1; ++b1){
+	vector < int > number1;
+	vector < int > number2(2);
+	int length1 = 0;
+	int length2 = 0;
+	for(;b1 != e1; ++b1){
 	number1.push_back(*b1);
-        ++length1;
-    }
-    reverse(number1.begin(), number1.end());
-    for(;b2 != e2; ++b2){
-        number2.push_back(*b2);
-        ++length2;
-    }
-    reverse(number2.begin(), number2.end());
-    if(length1 < length2){
+		++length1;
+	}
+	reverse(number1.begin(), number1.end());
+	for(;b2 != e2; ++b2){
+		number2.push_back(*b2);
+		++length2;
+	}
+	reverse(number2.begin(), number2.end());
+	if(length1 < length2){
         *x = 0;
         return x;
     }
@@ -874,7 +857,6 @@ class Integer {
 				if(digits[i] > 9 or digits[i] < 0)
 					return false;
 			
-			
 			return true;
 		}
 
@@ -931,12 +913,14 @@ class Integer {
 		
 		// print contents of digits
 		void print() const{
-			cerr << "digits: ";
-			int size = digits.size();
-			for(int i = 0; i < size; ++i)
-				cerr << " " << digits[i];
-			cerr << endl;
-		
+			if(DEBUG){
+				int x[4];
+				int size = -1;
+				cerr << "shift_left_digits: " << size << endl;
+				for(int i = 0; i < size; ++i)
+					cerr << " " << x[i];
+				cerr << endl;
+			}
 		}
 		
 		// ----------
@@ -993,7 +977,7 @@ class Integer {
 		// -----------
 		// operator +=
 		/**
-		* incomplete
+		* both numbers must be positive
 		*/
 		Integer& operator += (const Integer& rhs) {
 			typename C::iterator b0 = this->digits.begin();
@@ -1002,8 +986,12 @@ class Integer {
 			typename C::const_iterator e1 = rhs.digits.end();
 			typename C::iterator x = this->digits.begin();
 			
-			plus_digits(b0, e0, b1, e1, x);
-			
+			//if(this->negative == rhs.negative)
+			typename C::iterator p = plus_digits(b0, e0, b1, e1, x);
+			this->digits = C(x, p);
+			/*else if (rhs.negative)
+				*this -= rhs;
+			*/
 			return *this;
 		}
 
@@ -1019,7 +1007,8 @@ class Integer {
 			typename C::const_iterator e1 = rhs.digits.end();
 			typename C::iterator x = this->digits.begin();
 			
-			minus_digits(b0, e0, b1, e1, x);
+			typename C::iterator p = minus_digits(b0, e0, b1, e1, x);
+			this->digits = C(x, p);
 			
 			return *this;
 		}
@@ -1036,8 +1025,9 @@ class Integer {
 			typename C::const_iterator e1 = rhs.digits.end();
 			typename C::iterator x = this->digits.begin();
 			
-			multiplies_digits(b0, e0, b1, e1, x);
-			
+			typename C::iterator p = multiplies_digits(b0, e0, b1, e1, x);
+			this->digits = C(x, p);
+			if(DEBUG){ cerr << "multequals: " << *this << endl;}
 			if (rhs.negative xor this->negative)
 				negative = true;
 			
@@ -1127,7 +1117,6 @@ class Integer {
 				throw std::invalid_argument("Integer::pow(int)");
 			
 			Integer result = 1;
-			
 			/*for (int i = 0; i < e; ++i)
 				result *= *this;*/
                         if(e > 1)
