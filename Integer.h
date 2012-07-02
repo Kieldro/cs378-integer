@@ -1118,6 +1118,8 @@ class Integer {
 		* @throws invalid_argument if (e < 0)
 		*/
 		Integer& pow (int e) {
+                        cout<<"e is: "<<e<<endl;
+                        Integer n = *this;
 			if(this == 0 && (e == 0) )
 				throw std::invalid_argument("Integer::pow(int)");
 			
@@ -1126,10 +1128,18 @@ class Integer {
 			
 			Integer result = 1;
 			
-			for (int i = 0; i < e; ++i)
-				result *= *this;
-
-			*this = result;
+			/*for (int i = 0; i < e; ++i)
+				result *= *this;*/
+                        if(e > 1)
+                            result = n.pow(e/2); 
+                        if(!(e & 1))
+                            result *= result;
+                        else{
+                            result *= result;
+                            result *= *this;
+                        }
+                        cout<<result<<endl;
+	                *this = result;
 			return *this;
 		}
 	};
