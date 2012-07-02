@@ -22,6 +22,17 @@ using std::cout;
 using std::cerr;
 using std::endl;
 using std::vector;
+/*
+// print contents of digits
+template <typename II, typename OI>
+void print(II b, IO e)// const
+{
+	int size = e-b;
+	cerr << "shift_left_digits: " << size << endl;
+	for(;b != e; ++b)
+		cerr << " " << *b;
+	cerr << endl;
+}*/
 
 // -----------------
 // shift_left_digits
@@ -281,8 +292,7 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 				output[i] = temp;
 				carry = 0;
 			}
-		}
-		if(i < length1 && i >= length2){
+		}else if(i < length1 && i >= length2){
 			temp = number1[i] + carry;
 			if(temp > 9){
 				carry = 1;
@@ -354,7 +364,6 @@ vector < vector < int > > generateTable(vector < int > number){
  */
 template <typename II1, typename II2, typename OI>
 OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-	// <your code>
     vector < int > number1;
     vector < int > number2;
     int length1 = 0;
@@ -369,6 +378,8 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
         ++length2;
     }
     reverse(number2.begin(), number2.end());
+    
+    //print();
     vector < vector < int > > table(10);
     table = generateTable(number1);
     int counter = 0;
@@ -931,18 +942,6 @@ class Integer {
 		// ~Integer ();
 		// Integer& operator = (const Integer&);
 		
-		// print contents of digits
-		void print() const{
-			if(DEBUG){
-				int x[4];
-				int size = -1;
-				cerr << "shift_left_digits: " << size << endl;
-				for(int i = 0; i < size; ++i)
-					cerr << " " << x[i];
-				cerr << endl;
-			}
-		}
-		
 		// ----------
 		// operator -
 		/**
@@ -1018,7 +1017,7 @@ class Integer {
 		// -----------
 		// operator -=
 		/**
-		* <your documentation>
+		* Assig
 		*/
 		Integer& operator -= (const Integer& rhs) {
 			typename C::iterator b0 = this->digits.begin();
@@ -1043,14 +1042,32 @@ class Integer {
 			typename C::iterator e0 = this->digits.end();
 			typename C::const_iterator b1 = rhs.digits.begin();
 			typename C::const_iterator e1 = rhs.digits.end();
-			typename C::iterator x = this->digits.begin();
+			//typename C::iterator x = this->digits.begin();
 			
+			/*
+			
+			for(int i = 0; unsigned(i) < digits.size(); ++i)
+				L.push_back(digits[i] );
+			
+			cerr << "multdig L: " << L.size() << endl;
+			for(vector<int>::iterator it = L.begin(); it != L.end(); ++it)
+				cerr << *it;
+			cerr << endl;
+			*/
+			
+			//if(DEBUG){cerr << "*this : " << *this << endl;}
+			//if(DEBUG) cerr << "rhs   : " << rhs << endl;
+			
+			C temp(digits.size() + rhs.digits.size() + 1, 0);		// allocated more size than needed
+			typename C::iterator x = temp.begin();
 			typename C::iterator p = multiplies_digits(b0, e0, b1, e1, x);
-			this->digits = C(x, p);
-			if(DEBUG){ cerr << "multequals: " << *this << endl;}
+			
+			digits.assign(x, p);
+			
 			if (rhs.negative xor this->negative)
 				negative = true;
 			
+			//if(DEBUG) cerr << "result: "<< *this << endl << endl;
 			return *this;
 		}
 
@@ -1128,8 +1145,7 @@ class Integer {
 		* @throws invalid_argument if (e < 0)
 		*/
 		Integer& pow (int e) {
-                        cout<<"e is: "<<e<<endl;
-                        Integer n = *this;
+			Integer n = *this;
 			if(this == 0 && (e == 0) )
 				throw std::invalid_argument("Integer::pow(int)");
 			
@@ -1137,18 +1153,23 @@ class Integer {
 				throw std::invalid_argument("Integer::pow(int)");
 			
 			Integer result = 1;
-			/*for (int i = 0; i < e; ++i)
-				result *= *this;*/
-                        if(e > 1)
-                            result = n.pow(e/2); 
-                        if(!(e & 1))
-                            result *= result;
-                        else{
-                            result *= result;
-                            result *= *this;
-                        }
-                        cout<<result<<endl;
-	                *this = result;
+//			for (int i = 0; i < e; ++i)
+//				result *= *this;
+			//cerr << "e is: "<< e << endl;
+			//if(DEBUG) cerr << "pow this: " << *this << endl;
+			
+			//if(11 & 1) cerr << "BOOYAKASHA: "<< endl;
+			if(e > 1)
+				result = n.pow(e/2); 
+			
+			if(!(e & 1) )		// even
+				result *= result;
+			else{		// odd
+				result *= result;
+				result *= *this;
+			}
+			
+			*this = result;
 			return *this;
 		}
 	};

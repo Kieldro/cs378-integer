@@ -43,6 +43,7 @@ int main () {
 	{
 	const Integer<int> n = Integer<int>(2).pow(4423) - 1;
 	cout << "2^4423 - 1 = " << n << endl << endl;
+	//assert(n.size() == 1332);
 	}
 
 	{
@@ -57,12 +58,12 @@ int main () {
 
 	// less than 4 min without valgrind
 	// don't run with valgrind
-/*
+
 	{
 	const Integer<int> n = Integer<int>(2).pow(132049) - 1;
 	cout << "2^132049 - 1 = " << n << endl << endl;
 	}
-*/
+
 	cout << "Done." << endl;
 
 	return 0;

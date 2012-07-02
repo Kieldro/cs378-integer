@@ -51,7 +51,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInteger.html#a1d5315e4ec5b56b8cb3a6991d514f7d6">Integer</a> (int value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInteger.html#afebf72d47413ceedcc30b74c3055b771">Integer</a> (const std::string &amp;value)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInteger.html#a170f346a0ba5730e9f5d0b809c974f26">print</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classInteger.html">Integer</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInteger.html#ae9d1fb575b55ac2f6352a2d735c4bb75">operator-</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classInteger.html">Integer</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInteger.html#a3fc47ae07dce44aa72ce9e02b9a3e003">operator++</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classInteger.html">Integer</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInteger.html#a326d5bd7d72ad858f523bed95ae66150">operator++</a> (int)</td></tr>
@@ -130,7 +129,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>Constuctor taking a string arguement. </p>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>invalid_argument</em>&nbsp;</td><td>if value is not a valid representation of an <a class="el" href="classInteger.html">Integer</a> </td></tr>
@@ -226,7 +225,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>postincrement the operand </p>
 
 </div>
 </div>
@@ -246,7 +245,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>preincrement the operand </p>
 
 </div>
 </div>
@@ -308,7 +307,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>postdecrement the operand </p>
 
 </div>
 </div>
@@ -328,7 +327,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>predecrement the operand </p>
 
 </div>
 </div>
@@ -349,7 +348,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>Assig </p>
 
 </div>
 </div>
@@ -450,25 +449,6 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a170f346a0ba5730e9f5d0b809c974f26"></a><!-- doxytag: member="Integer::print" ref="a170f346a0ba5730e9f5d0b809c974f26" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classInteger.html">Integer</a>&lt; T, C &gt;::print </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="ace6a3dac75762d6c42b42285a426828c"></a><!-- doxytag: member="Integer::valid" ref="ace6a3dac75762d6c42b42285a426828c" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -515,7 +495,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns true is both Integers are not equal, false otherwise. </p>
 
 </div>
 </div>
@@ -545,7 +525,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns an <a class="el" href="classInteger.html">Integer</a> equal to lhs % rhs. </p>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>invalid_argument</em>&nbsp;</td><td>if (rhs &lt;= 0) </td></tr>
@@ -581,7 +561,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns an <a class="el" href="classInteger.html">Integer</a> equal to lhs * rhs. </p>
 
 </div>
 </div>
@@ -611,7 +591,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns an <a class="el" href="classInteger.html">Integer</a> equal to lhs + rhs. </p>
 
 </div>
 </div>
@@ -641,7 +621,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns an <a class="el" href="classInteger.html">Integer</a> equal to lhs - rhs. </p>
 
 </div>
 </div>
@@ -671,7 +651,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns an <a class="el" href="classInteger.html">Integer</a> equal to lhs / rhs. </p>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>invalid_argument</em>&nbsp;</td><td>if (rhs == 0) </td></tr>
@@ -707,7 +687,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns true if lhs is less than rhs. </p>
 
 </div>
 </div>
@@ -737,7 +717,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>Outputs the value of rhs to the ostream object. </p>
 
 </div>
 </div>
@@ -767,7 +747,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns an <a class="el" href="classInteger.html">Integer</a> equal to lhs digit-shifted right by rhs. </p>
 
 </div>
 </div>
@@ -797,7 +777,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns true if lhs is less than or equal to rhs. </p>
 
 </div>
 </div>
@@ -857,7 +837,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns true if lhs is greater than rhs. </p>
 
 </div>
 </div>
@@ -887,7 +867,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns true if lhs is greater than or equal to rhs. </p>
 
 </div>
 </div>
@@ -917,7 +897,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>&lt;your documentation&gt;=""&gt; </p>
+<p>returns an <a class="el" href="classInteger.html">Integer</a> equal to lhs digit-shifted left by rhs. </p>
 
 </div>
 </div>
@@ -947,7 +927,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>power does NOT modify the argument &lt;your documentation&gt;=""&gt; </p>
+<p>power does NOT modify the argument returns an <a class="el" href="classInteger.html">Integer</a> equal to x raised to the power e. </p>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>invalid_argument</em>&nbsp;</td><td>if (x == 0) &amp;&amp; (e == 0) </td></tr>
@@ -1007,7 +987,7 @@ template&lt;typename T, typename C = vector&lt;T&gt;&gt; </div>
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 14:30:49 2012 by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Jul 2 18:37:33 2012 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

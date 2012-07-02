@@ -140,7 +140,6 @@ struct TestInteger : CppUnit::TestFixture {
 			int x[10];
 		const int* p = multiplies_digits(a, a + 3, b, b + 3, x);
 		CPPUNIT_ASSERT(p - x == 6);
-		//if(DEBUG)print(x);
 		CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c));}
 		
 	void test_multiplies_digits_2 () {
@@ -152,6 +151,67 @@ struct TestInteger : CppUnit::TestFixture {
 		CPPUNIT_ASSERT(p - x == 4);
 		CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c));}
 
+	void test_multiplies_digits_3 () {
+		const int a[] = {1, 0, 0, 0};
+		const int b[] = {1, 0, 0};
+		const int c[] = {1, 0, 0, 0, 0, 0};
+			int x[10];
+		int aSize = sizeof a/sizeof a[0];
+		int bSize = sizeof b/sizeof b[0];
+		int cSize = sizeof c/sizeof c[0];
+		const int* p = multiplies_digits(a, a + aSize, b, b + bSize, x);
+		CPPUNIT_ASSERT(cSize == 6);
+		CPPUNIT_ASSERT(p - x == cSize);
+		CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c) );
+	}
+	
+	void test_multiplies_digits_4 () {
+		const int a[] = {1, 0, 0, 0};
+		const int b[] = {1, 0, 0, 0};
+		const int c[] = {1, 0, 0, 0, 0, 0, 0};
+			int x[10];
+		int aSize = sizeof a/sizeof a[0];
+		int bSize = sizeof b/sizeof b[0];
+		int cSize = sizeof c/sizeof c[0];
+		const int* p = multiplies_digits(a, a + aSize, b, b + bSize, x);
+		CPPUNIT_ASSERT(cSize == 7);
+		//if(DEBUG) cerr << "BOOYAKASHA! " << p - x << endl;
+		//if(DEBUG) print(x, x+3);
+		CPPUNIT_ASSERT(p - x == cSize);
+		CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c) );
+	}
+	
+	void test_multiplies_digits_5 () {
+		vector<int> a (4, 0);
+		a[0] = 1;
+		vector<int>::iterator ab = a.begin();
+		vector<int>::iterator ae = a.end();
+		
+		vector<int> b (4, 0);
+		b[0] = 1;
+		vector<int>::iterator bb = b.begin();
+		vector<int>::iterator be = b.end();
+		
+		//const int c[] = {1, 0, 0, 0, 0, 0, 0};
+		vector<int> x (7, 0);
+		vector<int>::iterator xb = x.begin();
+	/*	int aSize = sizeof a/sizeof a[0];
+		int bSize = sizeof b/sizeof b[0];
+		int cSize = sizeof c/sizeof c[0];*/
+		multiplies_digits(ab, ae, bb, be, xb);
+		//int size = e-b;
+		/*cerr << "multdig: " << x.size() << endl;
+		for(;xb != x.end(); ++xb)
+			cerr << " " << *xb;
+		cerr << endl;
+		*/
+		//CPPUNIT_ASSERT(cSize == 7);
+		//if(DEBUG) cerr << "BOOYAKASHA! " << p - x << endl;
+		//if(DEBUG) print(x, x+3);
+		//CPPUNIT_ASSERT(p - x == cSize);
+		//CPPUNIT_ASSERT(std::equal(const_cast<const int*>(x), p, c) );
+	}
+		
 	// --------------
 	// divides_digits
 	void test_divides_digits () {
@@ -375,6 +435,15 @@ struct TestInteger : CppUnit::TestFixture {
 		CPPUNIT_ASSERT( y == 11);
 	}
 	
+	void test_plusequals_5(){
+		Integer<int> x = 1000000;
+		Integer<int> y = 2000000;
+		
+		CPPUNIT_ASSERT( (x += y) == 3000000);
+		CPPUNIT_ASSERT( x == 3000000);
+		CPPUNIT_ASSERT( y == 2000000);
+	}
+	
 	// -----
 	// operator -=
 	void test_minusequals_1(){
@@ -425,21 +494,21 @@ struct TestInteger : CppUnit::TestFixture {
 	}
 	
 	void test_multequals_2(){
-		Integer<int> x = 3;
-		Integer<int> y = 5;
+		Integer<int> x = 5;
+		Integer<int> y = 3;
 		
 		CPPUNIT_ASSERT( (x *= y) == 15);
 		CPPUNIT_ASSERT( x == 15);
-		CPPUNIT_ASSERT( y == 5);
+		CPPUNIT_ASSERT( y == 3);
 	}
 	
 	void test_multequals_3(){
 		Integer<int> x = 3;
-		Integer<int> y = 11;
+		Integer<int> y = 21;
 		
-		CPPUNIT_ASSERT( (x *= y) == 33);
-		CPPUNIT_ASSERT( x == 33);
-		CPPUNIT_ASSERT( y == 11);
+		CPPUNIT_ASSERT( (x *= y) == 63);
+		CPPUNIT_ASSERT( x == 63);
+		CPPUNIT_ASSERT( y == 21);
 	}
 	
 	void test_multequals_4(){
@@ -454,8 +523,8 @@ struct TestInteger : CppUnit::TestFixture {
 	void test_multequals_5(){
 		Integer<int> x = 12;
 		Integer<int> y = 200;
-		if(DEBUG){ x *= y; cerr << "multequals: " << x << endl;}
-		//CPPUNIT_ASSERT( (x *= y) == 2400);
+		//if(DEBUG){ x *= y; cerr << "multequals: " << x << endl;}
+		CPPUNIT_ASSERT( (x *= y) == 2400);
 		CPPUNIT_ASSERT( x == 2400);
 		CPPUNIT_ASSERT( y == 200);
 	}
@@ -479,7 +548,7 @@ struct TestInteger : CppUnit::TestFixture {
 			const int          e =  9867;
 			Integer<int>&      y = x.pow(e);
 			CPPUNIT_ASSERT( e == 9867);
-			CPPUNIT_ASSERT( x ==    0);
+			CPPUNIT_ASSERT( x != 98765);
 			CPPUNIT_ASSERT(&x ==   &y);}
 		catch (std::invalid_argument& e) {
 			CPPUNIT_ASSERT(false);}
@@ -492,7 +561,8 @@ struct TestInteger : CppUnit::TestFixture {
 			const Integer<int> y = pow(x, e);
 			CPPUNIT_ASSERT(x == 98765);
 			CPPUNIT_ASSERT(e ==  9867);
-			CPPUNIT_ASSERT(y ==     0);}
+			//CPPUNIT_ASSERT(y ==     0);
+		}
 		catch (std::invalid_argument& e) {
 			CPPUNIT_ASSERT(false);}
 	}
@@ -500,11 +570,23 @@ struct TestInteger : CppUnit::TestFixture {
 	void test_pow_3 () {
 		try {
 			const Integer<int> x = 3;
-			const int          e =  2;
+			const int          e = 2;
 			const Integer<int> y = pow(x, e);
 			CPPUNIT_ASSERT(x == 3);
 			CPPUNIT_ASSERT(e == 2);
 			CPPUNIT_ASSERT(y == 9);}
+		catch (std::invalid_argument& e) {
+			CPPUNIT_ASSERT(false);}
+	}
+
+	void test_pow_4 () {
+		try {
+			const Integer<int> x = 10;
+			const int          e = 6;
+			const Integer<int> y = pow(x, e);
+			CPPUNIT_ASSERT(x == 10);
+			CPPUNIT_ASSERT(e == 6);
+			CPPUNIT_ASSERT(y == 1000000);}
 		catch (std::invalid_argument& e) {
 			CPPUNIT_ASSERT(false);}
 	}
@@ -523,6 +605,9 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_minus_digits);
 	CPPUNIT_TEST(test_multiplies_digits_1);
 	CPPUNIT_TEST(test_multiplies_digits_2);
+	CPPUNIT_TEST(test_multiplies_digits_3);
+	CPPUNIT_TEST(test_multiplies_digits_4);
+	CPPUNIT_TEST(test_multiplies_digits_5);
 	CPPUNIT_TEST(test_divides_digits);
 	
 	CPPUNIT_TEST(test_constructor_1);
@@ -546,6 +631,7 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_plusequals_2);
 	CPPUNIT_TEST(test_plusequals_3);
 	CPPUNIT_TEST(test_plusequals_4);
+	CPPUNIT_TEST(test_plusequals_5);
 	CPPUNIT_TEST(test_minusequals_1);
 	//CPPUNIT_TEST(test_minusequals_2);
 	CPPUNIT_TEST(test_minusequals_3);
@@ -554,11 +640,13 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_multequals_2);
 	CPPUNIT_TEST(test_multequals_3);
 	CPPUNIT_TEST(test_multequals_4);
-//	CPPUNIT_TEST(test_multequals_5);
+	CPPUNIT_TEST(test_multequals_5);
+	CPPUNIT_TEST(test_multequals_6);
 //	CPPUNIT_TEST(test_divequals_1);
 //	CPPUNIT_TEST(test_pow_1);
 //	CPPUNIT_TEST(test_pow_2);
-//	CPPUNIT_TEST(test_pow_3);
+	CPPUNIT_TEST(test_pow_3);
+	CPPUNIT_TEST(test_pow_4);
 	CPPUNIT_TEST_SUITE_END();
 };
 

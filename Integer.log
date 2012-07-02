@@ -1,3 +1,41 @@
+commit 47069f5718c18100c43012e7850288683eeef2fe
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Mon Jul 2 14:43:50 2012 -0500
+
+    Integer.h fixed again
+
+commit 892f9c0729296b8bd91a05e893b6b0b3b2895729
+Merge: 23a0077 bd6f0b9
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jul 2 14:40:49 2012 -0500
+
+    Merge branch 'master' of github.com:Kieldro/cs378-integer
+
+commit 23a00777cb6b4442296b9d69d64eb1160bdefd97
+Author: Ian Buitrago <kieldro@gmail.com>
+Date:   Mon Jul 2 14:40:44 2012 -0500
+
+    added some documentation.
+
+commit bd6f0b992a4e4c8b2dfd583f6d8a3730a0de3c19
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Mon Jul 2 14:40:20 2012 -0500
+
+    Integer.h with multiplies fixed
+
+commit 3d001abf4e57ea58e3bac323e7261eb0c78ca8cc
+Merge: 54c457e 71d2651
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Mon Jul 2 13:20:54 2012 -0500
+
+    Integer.h
+
+commit 54c457e9d537300885c5537b0de17681015130fb
+Author: Ryan Kluck <cs.utexas.edu>
+Date:   Mon Jul 2 13:20:01 2012 -0500
+
+    Integer.h updates
+
 commit 71d2651342a82caafe48a0bb965b130d5ef48c41
 Author: Ian Buitrago <kieldro@gmail.com>
 Date:   Mon Jul 2 12:52:57 2012 -0500
