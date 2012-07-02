@@ -7,7 +7,7 @@ unit=true
 clear
 if $unit; then
 echo COMPILING UNIT TESTS...
-g++ -ansi -pedantic -lcppunit -ldl -Wall $unitFile -o $unitFile.app
+g++ -ansi -pedantic -ldl -Wall $unitFile -lcppunit -o $unitFile.app
 if ([ $? == 0 ]); then
 echo RUNNING UNIT TESTS...
 ./$unitFile.app #>& TestInteger.out
