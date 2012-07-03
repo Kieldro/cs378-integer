@@ -639,8 +639,8 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_multequals_3);
 	CPPUNIT_TEST(test_multequals_4);
 	CPPUNIT_TEST(test_multequals_5);
-//	CPPUNIT_TEST(test_pow_1);
-//	CPPUNIT_TEST(test_pow_2);
+	CPPUNIT_TEST(test_pow_1);
+	CPPUNIT_TEST(test_pow_2);
 	CPPUNIT_TEST(test_pow_3);
 	CPPUNIT_TEST(test_pow_4);
 	CPPUNIT_TEST_SUITE_END();

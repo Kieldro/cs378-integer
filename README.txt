@@ -6,14 +6,14 @@ Last Name: Buitrago
 EID: ib
 E-mail: kieldro@gmail.com
 Estimated number of hours: 12
-Actual    number of hours: 
+Actual    number of hours: 20
 
 Partner First Name: Ryan
 Partner Last Name: Kluck
 Partner EID: rrk357
 Partner E-mail: rk122988@utexas.edu
 Partner Estimated number of hours: 16
-Partner Actual    number of hours: 
+Partner Actual    number of hours: 20
 
 Turnin CS Username: keo
 GitHub ID: Kieldro

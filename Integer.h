@@ -315,11 +315,6 @@ vector < int > vector_add(vector < int > number1, vector < int > number2){
 				carry = 0;
 			}
 		}
-               /* cout<<"number1 is:"<<number1[i]<<endl;
-                cout<<"number2 is:"<<number2[i]<<endl;
-                cout<<"temp is: "<<temp<<endl;
-                cout<<"carry is: "<<carry<<endl;*/
-
 	}
 	if(carry == 1){
 		output.push_back(1);
@@ -404,7 +399,7 @@ OI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
                         ++count;
        		 }
 	         temp.insert( temp.begin(), zeroes.begin(), zeroes.end() );
-	}
+		}
         if(counter == (length2-1)){
             if((int)output.size() < 3){
                  if((int)output.size() == 1){
@@ -463,8 +458,6 @@ bool isLessThanOrEqual (vector < int > number1, vector < int > number2){
 	return true;
 }
 
-
-
 // --------------
 // reverse_and_fix
 vector < int > reverse_and_fix(vector < int > number){
@@ -477,16 +470,11 @@ vector < int > reverse_and_fix(vector < int > number){
     return output;
 }
 
-
-
 // --------------
 // findVal
 int findVal(vector < vector < int > > table, vector < int > number){
     int out = 0;
     bool lessThan = isLessThanOrEqual(table[0], number);
-  /*  for(int j = 0; j < (int) table[0].size(); ++j){
-        cout<<table[1][j];
-    }*/
     for(int i = 0; i < 10; ++i){
         if(lessThan == false){
             out = i-2;
@@ -590,7 +578,6 @@ vector < int > vector_subtract(vector < int > number1, vector < int > number2){
 	return output;
 }
 
-
 // --------------
 // divides_digits
 /**
@@ -606,7 +593,6 @@ vector < int > vector_subtract(vector < int > number1, vector < int > number2){
  */
 template <typename II1, typename II2, typename OI>
 OI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, OI x) {
-	// <your code>
 	vector < int > number1;
 	vector < int > number2(2);
 	int length1 = 0;
@@ -690,7 +676,6 @@ class Integer {
 			assert(lhs.digits.size() == 1);		// no leading zeroes allowed
 			return true;
 		}
-		//if(DEBUG) cerr << "BOOYAKASHA!" << endl;
 		
 		if(lhs.negative xor rhs.negative)
 			return false;
@@ -762,8 +747,6 @@ class Integer {
 
     // ----------
     // operator >
-    // ----------
-
     /**
      * returns true if lhs is greater than rhs.
      */
@@ -928,10 +911,8 @@ class Integer {
 				++i;
 			}
 			
-			
 			for(; unsigned(i) < value.length(); ++i)
 				digits.push_back(value[i] - '0');
-			//if(DEBUG) cerr << "BOOYAKASHA!" << endl;
 			
 			if (!valid())
 				throw std::invalid_argument("Integer::Integer()");
@@ -1044,19 +1025,6 @@ class Integer {
 			typename C::iterator e0 = this->digits.end();
 			typename C::const_iterator b1 = rhs.digits.begin();
 			typename C::const_iterator e1 = rhs.digits.end();
-			//typename C::iterator x = this->digits.begin();
-			
-			/*
-			
-			for(int i = 0; unsigned(i) < digits.size(); ++i)
-				L.push_back(digits[i] );
-			
-			cerr << "multdig L: " << L.size() << endl;
-			for(vector<int>::iterator it = L.begin(); it != L.end(); ++it)
-				cerr << *it;
-			cerr << endl;
-			*/
-			
 			//if(DEBUG){cerr << "*this : " << *this << endl;}
 			//if(DEBUG) cerr << "rhs   : " << rhs << endl;
 			
@@ -1113,8 +1081,6 @@ class Integer {
 			
 			digits.assign(x, p);
 			
-			
-			
 			return *this;
 		}
 
@@ -1146,10 +1112,11 @@ class Integer {
 			
 			C temp(digits.size() *2 + 1, 0);
 			typename C::iterator x = temp.begin();
-			typename C::iterator p = shift_left_digits(b0, e0, n, x);
+			typename C::iterator p = shift_right_digits(b0, e0, n, x);
 			
 			digits.assign(x, p);
-			return *this;}
+			return *this;
+		}
 
 		// ---
 		// abs
@@ -1180,12 +1147,7 @@ class Integer {
 				throw std::invalid_argument("Integer::pow(int)");
 			
 			Integer result = 1;
-//			for (int i = 0; i < e; ++i)
-//				result *= *this;
-			//cerr << "e is: "<< e << endl;
-			//if(DEBUG) cerr << "pow this: " << *this << endl;
 			
-			//if(11 & 1) cerr << "BOOYAKASHA: "<< endl;
 			if(e > 1)
 				result = n.pow(e/2); 
 			
