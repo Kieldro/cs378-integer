@@ -6,7 +6,7 @@
 
 #ifndef Integer_h
 #define Integer_h
-#define DEBUG true
+#define DEBUG false
 
 // --------
 // includes
@@ -1017,17 +1017,19 @@ class Integer {
 		// -----------
 		// operator -=
 		/**
-		* Assig
+		* Assign *this to be *this - rhs
 		*/
 		Integer& operator -= (const Integer& rhs) {
 			typename C::iterator b0 = this->digits.begin();
 			typename C::iterator e0 = this->digits.end();
 			typename C::const_iterator b1 = rhs.digits.begin();
 			typename C::const_iterator e1 = rhs.digits.end();
-			typename C::iterator x = this->digits.begin();
 			
+			C temp(digits.size() + rhs.digits.size() + 1, 0);
+			typename C::iterator x = temp.begin();
 			typename C::iterator p = minus_digits(b0, e0, b1, e1, x);
-			this->digits = C(x, p);
+			
+			digits.assign(x, p);
 			
 			return *this;
 		}
@@ -1035,7 +1037,7 @@ class Integer {
 		// -----------
 		// operator *=
 		/**
-		* <your documentation>
+		* Assign *this to be *this * rhs
 		*/
 		Integer& operator *= (const Integer& rhs) {
 			typename C::iterator b0 = this->digits.begin();
@@ -1074,7 +1076,7 @@ class Integer {
 		// -----------
 		// operator /=
 		/**
-		* <your documentation>
+		* Assign *this to be *this / rhs
 		* @throws invalid_argument if (rhs == 0)
 		*/
 		Integer& operator /= (const Integer& rhs) {
@@ -1096,10 +1098,20 @@ class Integer {
 		// -----------
 		// operator %=
 		/**
-		* <your documentation>
+		* Assign *this to be *this % rhs
 		* @throws invalid_argument if (rhs <= 0)
 		*/
 		Integer& operator %= (const Integer& rhs) {
+			typename C::iterator b0 = this->digits.begin();
+			typename C::iterator e0 = this->digits.end();
+			typename C::const_iterator b1 = rhs.digits.begin();
+			typename C::const_iterator e1 = rhs.digits.end();
+			
+			C temp(digits.size() + rhs.digits.size() + 1, 0);
+			typename C::iterator x = temp.begin();
+			typename C::iterator p = minus_digits(b0, e0, b1, e1, x);
+			
+			digits.assign(x, p);
 			
 			
 			
@@ -1109,26 +1121,41 @@ class Integer {
 		// ------------
 		// operator <<=
 		/**
-		* <your documentation>
+		* Assign *this to be *this << n
 		*/
 		Integer& operator <<= (int n) {
-			// <your code>
+			typename C::iterator b0 = this->digits.begin();
+			typename C::iterator e0 = this->digits.end();
+			
+			C temp(digits.size() *2 + 1, 0);
+			typename C::iterator x = temp.begin();
+			typename C::iterator p = shift_left_digits(b0, e0, n, x);
+			
+			digits.assign(x, p);
+			
 			return *this;}
 
 		// ------------
 		// operator >>=
 		/**
-		* <your documentation>
+		* Assign *this to be *this >> n
 		*/
 		Integer& operator >>= (int n) {
-			// <your code>
+			typename C::iterator b0 = this->digits.begin();
+			typename C::iterator e0 = this->digits.end();
+			
+			C temp(digits.size() *2 + 1, 0);
+			typename C::iterator x = temp.begin();
+			typename C::iterator p = shift_left_digits(b0, e0, n, x);
+			
+			digits.assign(x, p);
 			return *this;}
 
 		// ---
 		// abs
 		/**
 		* absolute value
-		* <your documentation>
+		* Assign *this to be abs(*this)
 		*/
 		Integer& abs () {
 			negative = false;
@@ -1140,7 +1167,7 @@ class Integer {
 		// pow
 		/**
 		* power
-		* <your documentation>
+		* 
 		* @throws invalid_argument if (this == 0) && (e == 0)
 		* @throws invalid_argument if (e < 0)
 		*/
@@ -1179,7 +1206,7 @@ class Integer {
 /**
  * absolute value
  * does NOT modify the argument
- * <your documentation>
+ * function
  */
 template <typename T, typename C>
 Integer<T, C> abs (Integer<T, C> x) {

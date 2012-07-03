@@ -10,7 +10,7 @@ echo COMPILING UNIT TESTS...
 g++ -ansi -pedantic -ldl -Wall $unitFile -lcppunit -o $unitFile.app
 if ([ $? == 0 ]); then
 echo RUNNING UNIT TESTS...
-./$unitFile.app #>& TestInteger.out
+./$unitFile.app >& TestInteger.out
 #valgrind $unitFile.app >& TestInteger.out
 fi fi
 		
@@ -20,7 +20,7 @@ g++ -ansi -pedantic -Wall $source -o $source.app
 if ([ $? == 0 ]); then		# if no errors
 echo RUNNING PROGRAM...
 ./$source.app #>& $outFile
-#valgrind ./$source.app < $inFile >& $outFile
+#valgrind ./$source.app >& $outFile
 
 #echo CHECKING OUTPUT...; diff -lc RunInteger.out RunInteger.in
 <<MULTICOMMENT

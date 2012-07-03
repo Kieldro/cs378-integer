@@ -633,16 +633,12 @@ struct TestInteger : CppUnit::TestFixture {
 	CPPUNIT_TEST(test_plusequals_4);
 	CPPUNIT_TEST(test_plusequals_5);
 	CPPUNIT_TEST(test_minusequals_1);
-	//CPPUNIT_TEST(test_minusequals_2);
 	CPPUNIT_TEST(test_minusequals_3);
-//	CPPUNIT_TEST(test_minusequals_4);
 	CPPUNIT_TEST(test_multequals_1);
 	CPPUNIT_TEST(test_multequals_2);
 	CPPUNIT_TEST(test_multequals_3);
 	CPPUNIT_TEST(test_multequals_4);
 	CPPUNIT_TEST(test_multequals_5);
-	CPPUNIT_TEST(test_multequals_6);
-//	CPPUNIT_TEST(test_divequals_1);
 //	CPPUNIT_TEST(test_pow_1);
 //	CPPUNIT_TEST(test_pow_2);
 	CPPUNIT_TEST(test_pow_3);
